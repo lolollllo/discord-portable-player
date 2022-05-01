@@ -1,11 +1,6 @@
 name: Deploy Docs
-on:
-  push:
-    branches:
-      - '!docs'
-      - '!gh-pages'
-    tags:
-      - '*'
+on: workflow_dispatch
+
 jobs:
   docs:
     name: Documentation
