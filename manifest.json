@@ -1,0 +1,1 @@
+{"name":"Discord Portable Player","short_name":"Discord Portable Player","theme_color":"#ff5959","icons":[{"src":"./static/icons/icon.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},{"src":"./static/icons/icon.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}],"start_url":".","display":"minimal-ui","background_color":"#f70000"}
