@@ -1,7 +1,7 @@
 # Using Proxy to avoid 429
 
 ```js
-const { Player } = require("discord-player");
+const { Player } = require("discord-portable-player");
 const HttpsProxyAgent = require("https-proxy-agent");
 
 // Remove "user:pass@" if you don't need to authenticate to your proxy.
