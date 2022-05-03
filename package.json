@@ -1,6 +1,6 @@
 {
   "name": "discord-portable-player",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Complete framework to facilitate music commands using discord.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,13 +30,13 @@
     "prepare": "husky install",
     "lint:fix": "eslint src --ext .ts --fix"
   },
-  "funding": "https://github.com/lolollllo/discord-player?sponsor=1",
+  "funding": "https://github.com/lolollllo/discord-portable-player?sponsor=1",
   "contributors": [
     "Nex <nex@shittystuffwedo.tk>"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lolollllo/discord-player.git"
+    "url": "git+https://github.com/lolollllo/discord-portable-player.git"
   },
   "keywords": [
     "music",
@@ -61,7 +61,7 @@
   "author": "Androz2091",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lolollllo/discord-player/issues"
+    "url": "https://github.com/lolollllo/discord-portable-player/issues"
   },
   "homepage": "https://lolollllo.github.io/discord-portable-player/",
   "dependencies": {
