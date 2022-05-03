@@ -1,5 +1,5 @@
 # Discord Player Extractor API
-The Extractor API allows you to build your own stream extractor for **Discord Player**.
+The Extractor API allows you to build your own stream extractor for **Discord Portable Player**.
 
 # Example Extractor
 Your extractor should have 2 methods (required):
@@ -69,18 +69,3 @@ player.use("GiveItSomeName", myExtractor);
 ```js
 player.unuse("GiveItSomeName");
 ```
-
-# Readymade Extractors
-## **[@discord-player/extractor](https://github.com/Snowflake107/discord-player-extractors)**
-This extractor enables optional sources such as `Discord Attachments`, `Vimeo`, `Facebook` and `Reverbnation`. It also enables the `Lyrics` feature!
-
-## **[@discord-player/downloader](https://github.com/DevSnowflake/discord-player-downloader)**
-This extractor is based on **[YouTube DL](https://youtube-dl.org)**. This extractor enables `700+ websites` support. However, this extractor can get buggy and is not updated frequently. So, it is suggested to make your own extractor if you want to use it!
-
-```js
-const downloader = require("@discord-player/downloader").Downloader;
-
-player.use("YOUTUBE_DL", downloader);
-```
-
-> Discord Player auto-detects and uses `@discord-player/extractor` if it is installed!
