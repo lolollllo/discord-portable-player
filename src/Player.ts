@@ -32,7 +32,7 @@ class Player extends EventEmitter<PlayerEvents> {
     public requiredEvents = ["error", "connectionError"] as string[];
 
     /**
-     * Creates new Discord Player
+     * Creates new Discord Portable Player
      * @param {Client} client The Discord Client
      * @param {PlayerInitOptions} [options={}] The player init options
      */
