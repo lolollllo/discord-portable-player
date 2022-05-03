@@ -27,17 +27,17 @@ $ npm install --save @discordjs/opus
 - Avconv: **[https://libav.org/download](https://libav.org/download)**
 
 # Features
-- Simple & easy to use 🤘
-- Beginner friendly 😱
-- Audio filters 🎸
-- Lightweight ☁️
-- Custom extractors support 🌌
-- Multiple sources support ✌
-- Play in multiple servers at the same time 🚗
-- Does not inject anything to discord.js or your discord.js client 💉
-- Allows you to have full control over what is going to be streamed 👑
+- Simple & easy to use 
+- Beginner friendly
+- Audio filters 
+- Lightweight 
+- Custom extractors support 
+- Multiple sources support 
+- Play in multiple servers at the same time 
+- Does not inject anything to discord.js or your discord.js client 
+- Allows you to have full control over what is going to be streamed 
 
-## [Documentation OUT SOON!]
+***[Documentation OUT SOON!]***
 
 ## Getting Started
 
@@ -146,6 +146,8 @@ Discord Portable Player will be providing additional packages soon!
 ### Use cookies
 
 ```js
+const { Player } = require("discord-portable-player");
+
 const player = new Player(client, {
     ytdlOptions: {
         requestOptions: {
@@ -161,6 +163,7 @@ const player = new Player(client, {
 
 ```js
 const HttpsProxyAgent = require("https-proxy-agent");
+const { Player } = require("discord-portable-player");
 
 // Remove "user:pass@" if you don't need to authenticate to your proxy.
 const proxy = "http://user:pass@111.111.111.111:8080";
@@ -178,7 +181,7 @@ const player = new Player(client, {
 
 ### Custom stream Engine
 
-Discord Player by default uses **[node-ytdl-core](https://github.com/fent/node-ytdl-core)** for youtube and some other extractors for other sources.
+Discord Portable Player by default uses **[node-ytdl-core](https://github.com/fent/node-ytdl-core)** for youtube and some other extractors for other sources.
 If you need to modify this behavior without touching extractors, you need to use `createStream` functionality of discord player.
 Here's an example on how you can use **[play-dl](https://npmjs.com/package/play-dl)** to download youtube streams instead of using ytdl-core.
 
