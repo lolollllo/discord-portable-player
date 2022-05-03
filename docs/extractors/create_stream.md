@@ -1,11 +1,11 @@
 # Create Stream
 
-This is a checkpoint where discord-player calls `createStream` before downloading stream.
+This is a checkpoint where discord-portable-player calls `createStream` before downloading stream.
 
 ### Custom stream Engine
 
-Discord Player by default uses **[node-ytdl-core](https://github.com/fent/node-ytdl-core)** for youtube and some other extractors for other sources.
-If you need to modify this behavior without touching extractors, you need to use `createStream` functionality of discord player.
+Discord Portable Player by default uses **[node-ytdl-core](https://github.com/fent/node-ytdl-core)** for youtube and some other extractors for other sources.
+If you need to modify this behavior without touching extractors, you need to use `createStream` functionality of discord portable player.
 Here's an example on how you can use **[play-dl](https://npmjs.com/package/play-dl)** to download youtube streams instead of using ytdl-core.
 
 ```js
@@ -19,7 +19,7 @@ const queue = player.createQueue(..., {
         if (source === "youtube") {
             // track here would be youtube track
             return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
-            // we must return readable stream or void (returning void means telling discord-player to look for default extractor)
+            // we must return readable stream or void (returning void means telling discord-portable-player to look for default extractor)
         }
     }
 });
@@ -32,7 +32,7 @@ streams. `source` here will be a video source. Streams from `onBeforeCreateStrea
 ## How can I remove this?
 
 > If you already made this change and want to switch to default mode in runtime,
-> you can set `queue.onBeforeCreateStream` to `null` which will make `discord-player` use default config.
+> you can set `queue.onBeforeCreateStream` to `null` which will make `discord-portable-player` use default config.
 
 ## Which stream format should I return?
 
