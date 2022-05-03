@@ -1,7 +1,7 @@
 # Using Cookies to avoid 429
 
 ```js
-const { Player } = require("discord-player");
+const { Player } = require("discord-portable-player");
 
 const player = new Player(client, {
     ytdlOptions: {
