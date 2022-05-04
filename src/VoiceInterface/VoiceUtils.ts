@@ -80,7 +80,7 @@ class VoiceUtils {
     }
 
     /**
-     * Returns Discord Player voice connection
+     * Returns Discord Portable Player voice connection
      * @param {Snowflake} guild The guild id
      * @returns {StreamDispatcher}
      */
