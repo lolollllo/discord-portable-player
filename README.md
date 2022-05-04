@@ -37,7 +37,7 @@ $ npm install --save @discordjs/opus
 - Does not inject anything to discord.js or your discord.js client 
 - Allows you to have full control over what is going to be streamed 
 
-***[Documentation OUT SOON!]***
+**[Documentation](https://discord-portable-player.js.org)**
 
 ## Getting Started
 
