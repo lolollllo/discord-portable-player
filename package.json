@@ -63,7 +63,7 @@
   "bugs": {
     "url": "https://github.com/lolollllo/discord-portable-player/issues"
   },
-  "homepage": "https://lolollllo.github.io/discord-portable-player/",
+  "homepage": "https://discord-portable-player.js.org/",
   "dependencies": {
     "@discordjs/voice": "^0.8.0",
     "discord-ytdl-core": "^5.0.4",
