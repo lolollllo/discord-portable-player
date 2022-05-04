@@ -3,10 +3,10 @@
     - name: Welcome
       id: welcome
       path: ../../README.md
-- name: Migrating
+- name: Changes
   files:
-    - name: Migrating to v5
-      path: migrating.md
+    - name: Changes
+      path: changes.md
 - name: Extractors
   files:
     - name: Extractors API
