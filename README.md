@@ -45,8 +45,7 @@ First of all, you will need to register slash commands:
 
 ```js
 const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v10");
-const { ApplicationCommandOptionType } = require("discord.js");
+const { Routes } = require("discord-api-types/v9");
 
 const commands = [{
     name: "play",
@@ -54,14 +53,14 @@ const commands = [{
     options: [
         {
             name: "query",
-            type: ApplicationCommandOptionType.String,
+            type: "STRING",
             description: "The song you want to play",
             required: true
         }
     ]
 }]; 
 
-const rest = new REST({ version: "10" }).setToken(process.env.token);
+const rest = new REST({ version: "9" }).setToken(process.env.token);
 
 (async () => {
   try {
@@ -82,8 +81,8 @@ const rest = new REST({ version: "10" }).setToken(process.env.token);
 Now you can implement your bot's logic:
 
 ```js
-const { Client, GatewayIntentBits } = require("discord.js");
-const client = new Discord.Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates]});
+const { Client, Intents } = require("discord.js");
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES]});
 const { Player } = require("discord-portable-player");
 
 // Create a new Player (you don't need any API Key)
@@ -97,7 +96,7 @@ client.once("ready", () => {
 });
 
 client.on("interactionCreate", async (interaction) => {
-    if (!interaction.isChatInputCommand()) return;
+    if (!interaction.isCommand()) return;
 
     // /play track:Despacito
     // will play "Despacito" in the voice channel
@@ -131,7 +130,7 @@ client.on("interactionCreate", async (interaction) => {
     }
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(process.env.token);
 ```
 
 ## Supported websites
