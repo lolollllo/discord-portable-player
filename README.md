@@ -46,7 +46,7 @@ First of all, you will need to register slash commands:
 ```js
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v10");
-const { ApplicationCommandOptionTypes } = require("discord.js");
+const { ApplicationCommandOptionType } = require("discord.js");
 
 const commands = [{
     name: "play",
