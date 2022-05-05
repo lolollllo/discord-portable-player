@@ -941,16 +941,12 @@
   dependencies:
     "@cspotcode/source-map-consumer" "0.8.0"
 
-"@discordjs/docgen@^0.11.1":
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/@discordjs/docgen/-/docgen-0.11.1.tgz#ca7f139579f2bb848898734f08991dcb7463711d"
-  integrity sha512-6Qc+ObZnmxzkPZ+mUMzjmcM21U+aP91Iy8zoaKBcBPXl0+3HT9WHZazyNvq/7ukTsQuvrZy0/Fk9V3BuB+nObw==
+"@devsnowflake/docgen@devsnowflake/docgen#ts-patch":
+  version "0.9.0"
+  resolved "https://codeload.github.com/devsnowflake/docgen/tar.gz/cc87c4dfa7136fa1046946eff708bb995ca5e1f7"
   dependencies:
     eslint "^6.3.0"
     js-yaml "^3.13.1"
-    jsdoc-to-markdown "^5.0.1"
-    tsubaki "^1.3.2"
-    yargs "^14.0.0"
 
 "@discord-player/extractor@^3.0.2":
   version "3.0.2"
