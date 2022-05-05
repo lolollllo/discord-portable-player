@@ -1,6 +1,6 @@
-# How does Discord Player actually work?
+# How does Discord Portable Player actually work?
 
-- Discord Player can be used by first initializing `Player` class with your discord.js client. Discord Player uses `Queue` to assign queue manager to individual guild.
+- Discord Portable Player can be used by first initializing `Player` class with your discord.js client. Discord Player uses `Queue` to assign queue manager to individual guild.
 Which means each guild will have its own queue object. Every player action has to go through the `Queue` object for example, `play`, `pause`, `volume` etc.
 
 - When `Player` is initialized, it creates a cache to store external extractors or queues information. Queue is created by calling `createQueue` method of `Player` instance.
