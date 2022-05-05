@@ -1,4 +1,4 @@
-# Migrating to v2.x
+# BREAKING CHANGES
 
 ## Slash Commands
 
