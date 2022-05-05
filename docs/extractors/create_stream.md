@@ -1,10 +1,10 @@
 # Create Stream
 
-This is a checkpoint where discord-player calls `createStream` before downloading stream.
+This is a checkpoint where discord-portable-player calls `createStream` before downloading stream.
 
 ### Custom stream Engine
 
-Discord Player by default uses **[node-ytdl-core](https://github.com/fent/node-ytdl-core)** for youtube and some other extractors for other sources.
+Discord Portable Player by default uses **[node-ytdl-core](https://github.com/fent/node-ytdl-core)** for youtube and some other extractors for other sources.
 If you need to modify this behavior without touching extractors, you need to use `createStream` functionality of discord player.
 Here's an example on how you can use **[play-dl](https://npmjs.com/package/play-dl)** to download youtube streams instead of using ytdl-core.
 
