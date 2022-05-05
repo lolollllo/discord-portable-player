@@ -79,7 +79,7 @@
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-typescript": "^7.16.0",
-    "@discordjs/docgen": "0.11.1",
+    "@devsnowflake/docgen": "devsnowflake/docgen#ts-patch",
     "@discord-player/extractor": "^3.0.2",
     "@discordjs/opus": "github:discordjs/opus",
     "@favware/rollup-type-bundler": "^1.0.6",
