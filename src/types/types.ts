@@ -100,6 +100,7 @@ export interface RawTrackData {
  * @property {number} hours Time in hours
  * @property {number} minutes Time in minutes
  * @property {number} seconds Time in seconds
+ * @property {number} miliseconds Time in miliseconds
  */
 export interface TimeData {
     days: number;
@@ -118,6 +119,7 @@ export interface TimeData {
  */
 export interface PlayerProgressbarOptions {
     timecodes?: boolean;
+    queue?: boolean;
     length?: number;
     line?: string;
     indicator?: string;
@@ -235,22 +237,22 @@ export interface ExtractorModelData {
  * @typedef {number} QueryType
  */
 export enum QueryType {
-    AUTO,
-    YOUTUBE,
-    YOUTUBE_PLAYLIST,
-    SOUNDCLOUD_TRACK,
-    SOUNDCLOUD_PLAYLIST,
-    SOUNDCLOUD,
-    SPOTIFY_SONG,
-    SPOTIFY_ALBUM,
-    SPOTIFY_PLAYLIST,
-    FACEBOOK,
-    VIMEO,
-    ARBITRARY,
-    REVERBNATION,
-    YOUTUBE_SEARCH,
-    YOUTUBE_VIDEO,
-    SOUNDCLOUD_SEARCH
+    Auto,
+    YouTube,
+    YouTubePlaylist,
+    YouTubeSearch,
+    YouTubeVideo,
+    SoundCloud,
+    SoundCloudTrack,
+    SoundCloudPlaylist,
+    SoundCloudSearch,
+    SpotifySong,
+    SpotifyAlbum,
+    SpotifyPlaylist,
+    Facebook,
+    Vimeo,
+    Arbitrary,
+    Reverbnation
 }
 
 /**
@@ -380,10 +382,10 @@ export interface SearchOptions {
  * @typedef {number} QueueRepeatMode
  */
 export enum QueueRepeatMode {
-    OFF = 0,
-    TRACK = 1,
-    QUEUE = 2,
-    AUTOPLAY = 3
+    Off = 0,
+    Track = 1,
+    Queue = 2,
+    Autoplay = 3
 }
 
 /**
