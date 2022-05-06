@@ -1,4 +1,4 @@
-import { Client, Collection, GuildResolvable, Snowflake, User, VoiceState, Intents } from "discord.js";
+import { Client, Collection, GuildResolvable, Snowflake, User, VoiceState, GateawayIntentBits } from "discord.js";
 import { TypedEmitter as EventEmitter } from "tiny-typed-emitter";
 import { Queue } from "./Structures/Queue";
 import { VoiceUtils } from "./VoiceInterface/VoiceUtils";
@@ -45,8 +45,8 @@ class Player extends EventEmitter<PlayerEvents> {
          */
         this.client = client;
 
-        if (this.client?.options?.intents && !new Intents(this.client?.options?.intents).has(Intents.FLAGS.GUILD_VOICE_STATES)) {
-            throw new PlayerError('client is missing "GUILD_VOICE_STATES" intent');
+        if (this.client?.options?.intents && !new Intents(this.client?.options?.intents).has(GateawayIntentBits.GuildVoiceStates)) {
+            throw new PlayerError('The client is missing "GuildVoiceStates" intent!');
         }
 
         /**
@@ -145,9 +145,9 @@ class Player extends EventEmitter<PlayerEvents> {
      * Creates a queue for a guild if not available, else returns existing queue
      * @param {GuildResolvable} guild The guild
      * @param {PlayerOptions} queueInitOptions Queue init options
-     * @returns {Queue}
+     * @returns {guildQueue}
      */
-    createQueue<T = unknown>(guild: GuildResolvable, queueInitOptions: PlayerOptions & { metadata?: T } = {}): Queue<T> {
+    createGuildQueue<T = unknown>(guild: GuildResolvable, queueInitOptions: PlayerOptions & { metadata?: T } = {}): Queue<T> {
         guild = this.client.guilds.resolve(guild);
         if (!guild) throw new PlayerError("Unknown Guild", ErrorStatusCode.UNKNOWN_GUILD);
         if (this.queues.has(guild.id)) return this.queues.get(guild.id) as Queue<T>;
@@ -160,18 +160,18 @@ class Player extends EventEmitter<PlayerEvents> {
         queue.metadata = _meta;
         this.queues.set(guild.id, queue);
 
-        return queue as Queue<T>;
+        return queue as guildQueue<T>;
     }
 
     /**
      * Returns the queue if available
      * @param {GuildResolvable} guild The guild id
-     * @returns {Queue}
+     * @returns {guildQueue}
      */
-    getQueue<T = unknown>(guild: GuildResolvable) {
+    getGuildQueue<T = unknown>(guild: GuildResolvable) {
         guild = this.client.guilds.resolve(guild);
         if (!guild) throw new PlayerError("Unknown Guild", ErrorStatusCode.UNKNOWN_GUILD);
-        return this.queues.get(guild.id) as Queue<T>;
+        return this.queues.get(guild.id) as guildQueue<T>;
     }
 
     /**
@@ -179,7 +179,7 @@ class Player extends EventEmitter<PlayerEvents> {
      * @param {GuildResolvable} guild The guild id to remove
      * @returns {Queue}
      */
-    deleteQueue<T = unknown>(guild: GuildResolvable) {
+    deleteGuildQueue<T = unknown>(guild: GuildResolvable) {
         guild = this.client.guilds.resolve(guild);
         if (!guild) throw new PlayerError("Unknown Guild", ErrorStatusCode.UNKNOWN_GUILD);
         const prev = this.getQueue<T>(guild);
