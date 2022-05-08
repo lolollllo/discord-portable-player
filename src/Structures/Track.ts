@@ -8,7 +8,7 @@ class Track {
     public player!: Player;
     public title!: string;
     public description!: string;
-    public author!: string;
+    public artist!: string;
     public url!: string;
     public thumbnail!: string;
     public duration!: string;
@@ -45,8 +45,8 @@ class Track {
          */
 
         /**
-         * Author of this track
-         * @name Track#author
+         * Artist of this track
+         * @name Track#artist
          * @type {string}
          */
 
@@ -110,7 +110,7 @@ class Track {
 
     private _patch(data: RawTrackData) {
         this.title = Util.escapeMarkdown(data.title ?? "");
-        this.author = data.author ?? "";
+        this.artist = data.author ?? "";
         this.url = data.url ?? "";
         this.thumbnail = data.thumbnail ?? "";
         this.duration = data.duration ?? "";
@@ -126,7 +126,7 @@ class Track {
      * The queue in which this track is located
      * @type {Queue}
      */
-    get queue(): Queue {
+    get guildQueue(): Queue {
         return this.player.queues.find((q) => q.tracks.some((ab) => ab.id === this.id));
     }
 
@@ -173,7 +173,7 @@ class Track {
             id: this.id,
             title: this.title,
             description: this.description,
-            author: this.author,
+            artist: this.author,
             url: this.url,
             thumbnail: this.thumbnail,
             duration: this.duration,
