@@ -207,7 +207,7 @@ class Player extends EventEmitter<PlayerEvents> {
         if (query instanceof Track) return { playlist: query.playlist || null, tracks: [query] };
         if (!options) throw new PlayerError("DiscordPlayer#search needs search options!", ErrorStatusCode.INVALID_ARG_TYPE);
         options.requestedBy = this.client.users.resolve(options.requestedBy);
-        if (!("searchEngine" in options)) options.searchEngine = QueryType.AUTO;
+        if (!("searchEngine" in options)) options.searchEngine = QueryType.Auto;
         if (typeof options.searchEngine === "string" && this.extractors.has(options.searchEngine)) {
             const extractor = this.extractors.get(options.searchEngine);
             if (!extractor.validate(query)) return { playlist: null, tracks: [] };
@@ -265,16 +265,16 @@ class Player extends EventEmitter<PlayerEvents> {
             }
         }
 
-        const qt = options.searchEngine === QueryType.AUTO ? QueryResolver.resolve(query) : options.searchEngine;
+        const qt = options.searchEngine === QueryType.Auto ? QueryResolver.resolve(query) : options.searchEngine;
         switch (qt) {
-            case QueryType.YOUTUBE_VIDEO: {
+            case QueryType.YouTubeVideo: {
                 const info = await ytdlGetInfo(query, this.options.ytdlOptions).catch(Util.noop);
                 if (!info) return { playlist: null, tracks: [] };
 
                 const track = new Track(this, {
                     title: info.videoDetails.title,
                     description: info.videoDetails.description,
-                    author: info.videoDetails.author?.name,
+                    artist: info.videoDetails.author?.name,
                     url: info.videoDetails.video_url,
                     requestedBy: options.requestedBy as User,
                     thumbnail: Util.last(info.videoDetails.thumbnails)?.url,
@@ -286,7 +286,7 @@ class Player extends EventEmitter<PlayerEvents> {
 
                 return { playlist: null, tracks: [track] };
             }
-            case QueryType.YOUTUBE_SEARCH: {
+            case QueryType.YouTubeSearch: {
                 const videos = await YouTube.search(query, {
                     type: "video"
                 }).catch(Util.noop);
@@ -297,7 +297,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     return new Track(this, {
                         title: m.title,
                         description: m.description,
-                        author: m.channel?.name,
+                        artist: m.channel?.name,
                         url: m.url,
                         requestedBy: options.requestedBy as User,
                         thumbnail: m.thumbnail?.displayThumbnailURL("maxresdefault"),
@@ -310,9 +310,9 @@ class Player extends EventEmitter<PlayerEvents> {
 
                 return { playlist: null, tracks };
             }
-            case QueryType.SOUNDCLOUD_TRACK:
-            case QueryType.SOUNDCLOUD_SEARCH: {
-                const result: SoundCloudSearchResult[] = QueryResolver.resolve(query) === QueryType.SOUNDCLOUD_TRACK ? [{ url: query }] : await soundcloud.search(query, "track").catch(() => []);
+            case QueryType.SoundCloudTrack:
+            case QueryType.SoundCloudSearch: {
+                const result: SoundCloudSearchResult[] = QueryResolver.resolve(query) === QueryType.SoundCloudTrack ? [{ url: query }] : await soundcloud.search(query, "track").catch(() => []);
                 if (!result || !result.length) return { playlist: null, tracks: [] };
                 const res: Track[] = [];
 
@@ -327,7 +327,7 @@ class Player extends EventEmitter<PlayerEvents> {
                         description: trackInfo.description,
                         thumbnail: trackInfo.thumbnail,
                         views: trackInfo.playCount,
-                        author: trackInfo.author.name,
+                        artist: trackInfo.author.name,
                         requestedBy: options.requestedBy,
                         source: "soundcloud",
                         engine: trackInfo
@@ -338,13 +338,13 @@ class Player extends EventEmitter<PlayerEvents> {
 
                 return { playlist: null, tracks: res };
             }
-            case QueryType.SPOTIFY_SONG: {
+            case QueryType.SpotifySong: {
                 const spotifyData = await Spotify.getData(query).catch(Util.noop);
                 if (!spotifyData) return { playlist: null, tracks: [] };
                 const spotifyTrack = new Track(this, {
                     title: spotifyData.name,
                     description: spotifyData.description ?? "",
-                    author: spotifyData.artists[0]?.name ?? "Unknown Artist",
+                    artist: spotifyData.artists[0]?.name ?? "Unknown Artist",
                     url: spotifyData.external_urls?.spotify ?? query,
                     thumbnail:
                         spotifyData.album?.images[0]?.url ?? spotifyData.preview_url?.length
@@ -358,8 +358,8 @@ class Player extends EventEmitter<PlayerEvents> {
 
                 return { playlist: null, tracks: [spotifyTrack] };
             }
-            case QueryType.SPOTIFY_PLAYLIST:
-            case QueryType.SPOTIFY_ALBUM: {
+            case QueryType.SpotifyPlaylist:
+            case QueryType.SpotifyAlbum: {
                 const spotifyPlaylist = await Spotify.getData(query).catch(Util.noop);
                 if (!spotifyPlaylist) return { playlist: null, tracks: [] };
 
@@ -369,7 +369,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     thumbnail: spotifyPlaylist.images[0]?.url ?? "https://www.scdn.co/i/_global/twitter_card-default.jpg",
                     type: spotifyPlaylist.type,
                     source: "spotify",
-                    author:
+                    artist:
                         spotifyPlaylist.type !== "playlist"
                             ? {
                                   name: spotifyPlaylist.artists[0]?.name ?? "Unknown Artist",
@@ -391,7 +391,7 @@ class Player extends EventEmitter<PlayerEvents> {
                         const data = new Track(this, {
                             title: m.name ?? "",
                             description: m.description ?? "",
-                            author: m.artists[0]?.name ?? "Unknown Artist",
+                            artist: m.artists[0]?.name ?? "Unknown Artist",
                             url: m.external_urls?.spotify ?? query,
                             thumbnail: spotifyPlaylist.images[0]?.url ?? "https://www.scdn.co/i/_global/twitter_card-default.jpg",
                             duration: Util.buildTimeCode(Util.parseMS(m.duration_ms)),
@@ -409,7 +409,7 @@ class Player extends EventEmitter<PlayerEvents> {
                         const data = new Track(this, {
                             title: m.track.name ?? "",
                             description: m.track.description ?? "",
-                            author: m.track.artists[0]?.name ?? "Unknown Artist",
+                            artist: m.track.artists[0]?.name ?? "Unknown Artist",
                             url: m.track.external_urls?.spotify ?? query,
                             thumbnail: m.track.album?.images[0]?.url ?? "https://www.scdn.co/i/_global/twitter_card-default.jpg",
                             duration: Util.buildTimeCode(Util.parseMS(m.track.duration_ms)),
@@ -425,7 +425,7 @@ class Player extends EventEmitter<PlayerEvents> {
 
                 return { playlist: playlist, tracks: playlist.tracks };
             }
-            case QueryType.SOUNDCLOUD_PLAYLIST: {
+            case QueryType.SoundCloudPlaylist: {
                 const data = await soundcloud.getPlaylist(query).catch(Util.noop);
                 if (!data) return { playlist: null, tracks: [] };
 
@@ -435,7 +435,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     thumbnail: data.thumbnail ?? "https://soundcloud.com/pwa-icon-192.png",
                     type: "playlist",
                     source: "soundcloud",
-                    author: {
+                    artist: {
                         name: data.author?.name ?? data.author?.username ?? "Unknown Artist",
                         url: data.author?.profile
                     },
@@ -449,7 +449,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     const track = new Track(this, {
                         title: song.title,
                         description: song.description ?? "",
-                        author: song.author?.username ?? song.author?.name ?? "Unknown Artist",
+                        artist: song.author?.username ?? song.author?.name ?? "Unknown Artist",
                         url: song.url,
                         thumbnail: song.thumbnail,
                         duration: Util.buildTimeCode(Util.parseMS(song.duration)),
@@ -464,7 +464,7 @@ class Player extends EventEmitter<PlayerEvents> {
 
                 return { playlist: res, tracks: res.tracks };
             }
-            case QueryType.YOUTUBE_PLAYLIST: {
+            case QueryType.YouTubePlaylist: {
                 const ytpl = await YouTube.getPlaylist(query).catch(Util.noop);
                 if (!ytpl) return { playlist: null, tracks: [] };
 
@@ -476,7 +476,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     description: "",
                     type: "playlist",
                     source: "youtube",
-                    author: {
+                    artist: {
                         name: ytpl.channel.name,
                         url: ytpl.channel.url
                     },
@@ -491,7 +491,7 @@ class Player extends EventEmitter<PlayerEvents> {
                         new Track(this, {
                             title: video.title,
                             description: video.description,
-                            author: video.channel?.name,
+                            artist: video.channel?.name,
                             url: video.url,
                             requestedBy: options.requestedBy as User,
                             thumbnail: video.thumbnail.url,
