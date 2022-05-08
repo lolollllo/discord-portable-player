@@ -10,7 +10,7 @@ class Playlist {
     public thumbnail: string;
     public type: "album" | "playlist";
     public source: TrackSource;
-    public author: {
+    public artist: {
         name: string;
         url: string;
     };
@@ -40,11 +40,11 @@ class Playlist {
         this.tracks = data.tracks ?? [];
 
         /**
-         * The author of this playlist
-         * @name Playlist#author
+         * The artist of this playlist
+         * @name Playlist#artist
          * @type {object}
          */
-        this.author = data.author;
+        this.artist = data.author;
 
         /**
          * The description
@@ -125,7 +125,7 @@ class Playlist {
             thumbnail: this.thumbnail,
             type: this.type,
             source: this.source,
-            author: this.author,
+            artist: this.author,
             tracks: [] as TrackJSON[]
         };
 
