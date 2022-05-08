@@ -66,7 +66,7 @@ export type TrackSource = "soundcloud" | "youtube" | "spotify" | "arbitrary";
  * @typedef {object} RawTrackData
  * @property {string} title The title
  * @property {string} description The description
- * @property {string} author The author
+ * @property {string} artist The artist of the track
  * @property {string} url The url
  * @property {string} thumbnail The thumbnail
  * @property {string} duration The duration
@@ -180,7 +180,7 @@ export interface PlayerOptions {
  * @property {string} thumbnail The thumbnail
  * @property {string|Readable|Duplex} engine The stream engine
  * @property {number} views The views count
- * @property {string} author The author
+ * @property {string} artist The artist of the track
  * @property {string} description The description
  * @property {string} url The url
  * @property {string} [version] The extractor version
@@ -193,7 +193,7 @@ export interface ExtractorModelData {
         thumbnail: string;
         type: "album" | "playlist";
         source: TrackSource;
-        author: {
+        artist: {
             name: string;
             url: string;
         };
@@ -207,7 +207,7 @@ export interface ExtractorModelData {
         thumbnail: string;
         engine: string | Readable | Duplex;
         views: number;
-        author: string;
+        artist: string;
         description: string;
         url: string;
         version?: string;
@@ -218,22 +218,22 @@ export interface ExtractorModelData {
 /**
  * The search query type
  * This can be one of:
- * - AUTO
- * - YOUTUBE
- * - YOUTUBE_PLAYLIST
- * - SOUNDCLOUD_TRACK
- * - SOUNDCLOUD_PLAYLIST
- * - SOUNDCLOUD
- * - SPOTIFY_SONG
- * - SPOTIFY_ALBUM
- * - SPOTIFY_PLAYLIST
- * - FACEBOOK
- * - VIMEO
- * - ARBITRARY
- * - REVERBNATION
- * - YOUTUBE_SEARCH
- * - YOUTUBE_VIDEO
- * - SOUNDCLOUD_SEARCH
+ * - Auto
+ * - YouTube
+ * - YouTubePlaylist
+ * - YouTubeSearch
+ * - YouTubeVideo
+ * - SoundCloud
+ * - SoundCloudTrack
+ * - SoundCloudPlaylist
+ * - SoundCloudSearch
+ * - SpotifySong
+ * - SpotifyAlbum
+ * - SpotifyPlaylist
+ * - Facebook
+ * - Vimeo
+ * - Arbitrary
+ * - Reverbnation
  * @typedef {number} QueryType
  */
 export enum QueryType {
