@@ -1,4 +1,4 @@
-import { Client, Collection, GuildResolvable, Snowflake, User, VoiceState, GateawayIntentBits } from "discord.js";
+import { Client, Collection, GuildResolvable, Snowflake, User, VoiceState, GatewayIntentBits } from "discord.js";
 import { TypedEmitter as EventEmitter } from "tiny-typed-emitter";
 import { Queue } from "./Structures/Queue";
 import { VoiceUtils } from "./VoiceInterface/VoiceUtils";
@@ -46,7 +46,7 @@ class Player extends EventEmitter<PlayerEvents> {
          */
         this.client = client;
 
-        if (this.client?.options?.intents && !new Intents(this.client?.options?.intents).has(GateawayIntentBits.GuildVoiceStates)) {
+        if (this.client?.options?.intents && !new Intents(this.client?.options?.intents).has(GatewayIntentBits.GuildVoiceStates)) {
             throw new PlayerError('The client is missing "GuildVoiceStates" intent!');
         }
 
@@ -75,7 +75,7 @@ class Player extends EventEmitter<PlayerEvents> {
      * @private
      */
     private _handleVoiceState(oldState: VoiceState, newState: VoiceState): void {
-        const queue = this.getQueue(oldState.guild.id);
+        const queue = this.getGuildQueue(oldState.guild.id);
         if (!queue) return;
 
         if (oldState.channelId && newState && oldState.channelId !== newState.channelId) {
@@ -151,7 +151,7 @@ class Player extends EventEmitter<PlayerEvents> {
     createGuildQueue<T = unknown>(guild: GuildResolvable, queueInitOptions: PlayerOptions & { metadata?: T } = {}): Queue<T> {
         guild = this.client.guilds.resolve(guild);
         if (!guild) throw new PlayerError("Unknown Guild", ErrorStatusCode.UNKNOWN_GUILD);
-        if (this.queues.has(guild.id)) return this.queues.get(guild.id) as Queue<T>;
+        if (this.queues.has(guild.id)) return this.queues.get(guild.id) as guildQueue<T>;
 
         const _meta = queueInitOptions.metadata;
         delete queueInitOptions["metadata"];
@@ -178,12 +178,12 @@ class Player extends EventEmitter<PlayerEvents> {
     /**
      * Deletes a queue and returns deleted queue object
      * @param {GuildResolvable} guild The guild id to remove
-     * @returns {Queue}
+     * @returns {guildQueue}
      */
     deleteGuildQueue<T = unknown>(guild: GuildResolvable) {
         guild = this.client.guilds.resolve(guild);
         if (!guild) throw new PlayerError("Unknown Guild", ErrorStatusCode.UNKNOWN_GUILD);
-        const prev = this.getQueue<T>(guild);
+        const prev = this.getGuildQueue<T>(guild);
 
         try {
             prev.destroy();
