@@ -81,7 +81,7 @@ export type TrackSource = "soundcloud" | "youtube" | "spotify" | "arbitrary";
 export interface RawTrackData {
     title: string;
     description: string;
-    author: string;
+    artist: string;
     url: string;
     thumbnail: string;
     duration: string;
@@ -219,6 +219,9 @@ export interface ExtractorModelData {
  * The search query type
  * This can be one of:
  * - Auto
+ * - AppleMusicTrack
+ * - AppleMusicAlbum
+ * - AppleMusicPlaylist
  * - YouTube
  * - YouTubePlaylist
  * - YouTubeSearch
@@ -238,6 +241,9 @@ export interface ExtractorModelData {
  */
 export enum QueryType {
     Auto,
+    AppleMusicTrack,
+    AppleMusicAlbum,
+    AppleMusicPlaylist,
     YouTube,
     YouTubePlaylist,
     YouTubeSearch,
