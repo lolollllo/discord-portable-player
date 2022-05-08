@@ -3438,17 +3438,18 @@ sourcemap-codec@^1.4.4:
   version "1.4.8"
   resolved "https://registry.npmjs.org/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz"
 
-spotify-uri@~2.2.0:
-  version "2.2.0"
-  resolved "https://registry.npmjs.org/spotify-uri/-/spotify-uri-2.2.0.tgz"
+spotify-uri@~3.0.1:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/spotify-uri/-/spotify-uri-3.0.2.tgz#96f340927c12f7cb1ad47b9db5bc13dd38f05f0c"
+  integrity sha512-1RrJkUr+uVYJtJiMvh/Jq42GQikJBZN87ki3ZYzybF9452fb5EfAihdMSIAHGU55+YQUl5Vqb1VLJDzEdottAw==
 
-spotify-url-info@^2.2.7:
-  version "2.2.9"
-  resolved "https://registry.yarnpkg.com/spotify-url-info/-/spotify-url-info-2.2.9.tgz#661cf7e699534fb4b02fc7c15c47605b88bc076b"
+spotify-url-info@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/spotify-url-info/-/spotify-url-info-3.1.1.tgz#c97cc0843875d4213a4dabb695531ea85680c8ba"
+  integrity sha512-hBTVPrt9bTNOOqjZq6DxWSP3I9pIVfu5S927cwB+VSNxrims0VNzx4YG69VFOvaAfpjXgUlSAiXWwabflhWdIg==
   dependencies:
-    cross-fetch "~3.1.4"
     himalaya "~1.1.0"
-    spotify-uri "~2.2.0"
+    spotify-uri "~3.0.1"
 
 sprintf-js@~1.0.2:
   version "1.0.3"
