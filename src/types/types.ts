@@ -416,7 +416,7 @@ export interface PlaylistInitData {
     thumbnail: string;
     type: "album" | "playlist";
     source: TrackSource;
-    author: {
+    artist: {
         name: string;
         url: string;
     };
@@ -442,7 +442,7 @@ export interface TrackJSON {
     id: Snowflake;
     title: string;
     description: string;
-    author: string;
+    artist: string;
     url: string;
     thumbnail: string;
     duration: string;
@@ -474,7 +474,7 @@ export interface PlaylistJSON {
     thumbnail: string;
     type: "album" | "playlist";
     source: TrackSource;
-    author: {
+    artist: {
         name: string;
         url: string;
     };
