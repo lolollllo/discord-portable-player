@@ -192,14 +192,14 @@ class Queue<T = unknown> {
 
             this.player.emit("trackEnd", this, resource.metadata);
 
-            if (!this.tracks.length && this.repeatMode === QueueRepeatMode.OFF) {
+            if (!this.tracks.length && this.repeatMode === QueueRepeatMode.Off) {
                 if (this.options.leaveOnEnd) this.destroy();
                 this.player.emit("queueEnd", this);
-            } else if (!this.tracks.length && this.repeatMode === QueueRepeatMode.AUTOPLAY) {
+            } else if (!this.tracks.length && this.repeatMode === QueueRepeatMode.Autoplay) {
                 this._handleAutoplay(Util.last(this.previousTracks));
             } else {
-                if (this.repeatMode === QueueRepeatMode.TRACK) return void this.play(Util.last(this.previousTracks), { immediate: true });
-                if (this.repeatMode === QueueRepeatMode.QUEUE) this.tracks.push(Util.last(this.previousTracks));
+                if (this.repeatMode === QueueRepeatMode.Track) return void this.play(Util.last(this.previousTracks), { immediate: true });
+                if (this.repeatMode === QueueRepeatMode.Queue) this.tracks.push(Util.last(this.previousTracks));
                 const nextTrack = this.tracks.shift();
                 this.play(nextTrack, { immediate: true });
                 return;
@@ -302,7 +302,7 @@ class Queue<T = unknown> {
      * @param  {QueueRepeatMode} mode The repeat mode
      * @returns {boolean}
      */
-    setRepeatMode(mode: QueueRepeatMode) {
+    setLoop(mode: QueueRepeatMode) {
         if (this.#watchDestroyed()) return;
         if (![QueueRepeatMode.OFF, QueueRepeatMode.QUEUE, QueueRepeatMode.TRACK, QueueRepeatMode.AUTOPLAY].includes(mode))
             throw new PlayerError(`Unknown repeat mode "${mode}"!`, ErrorStatusCode.UNKNOWN_REPEAT_MODE);
