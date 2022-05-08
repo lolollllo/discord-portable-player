@@ -5,8 +5,10 @@
       path: ../../README.md
 - name: Migrating
   files:
-    - name: Migrating to v5
+    - name: Migrating to v2
       path: migrating.md
+    - name: Whats New
+      path: whats_new.md
 - name: Extractors
   files:
     - name: Extractors API
