@@ -44,7 +44,7 @@ class ExtractorModel {
                     thumbnail: m.thumbnail as string,
                     engine: m.engine,
                     views: m.views as number,
-                    author: m.author as string,
+                    artist: m.author as string,
                     description: m.description as string,
                     url: m.url as string,
                     source: m.source || "arbitrary"
