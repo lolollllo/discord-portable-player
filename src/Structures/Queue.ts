@@ -304,7 +304,7 @@ class Queue<T = unknown> {
      */
     setLoop(mode: QueueRepeatMode) {
         if (this.#watchDestroyed()) return;
-        if (![QueueRepeatMode.OFF, QueueRepeatMode.QUEUE, QueueRepeatMode.TRACK, QueueRepeatMode.AUTOPLAY].includes(mode))
+        if (![QueueRepeatMode.Off, QueueRepeatMode.Queue, QueueRepeatMode.Track, QueueRepeatMode.Autoplay].includes(mode))
             throw new PlayerError(`Unknown repeat mode "${mode}"!`, ErrorStatusCode.UNKNOWN_REPEAT_MODE);
         if (mode === this.repeatMode) return false;
         this.repeatMode = mode;
