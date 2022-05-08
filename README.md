@@ -136,7 +136,7 @@ client.login(process.env.DISCORD_TOKEN);
 
 ## Supported websites
 
-By default, discord-portable-player supports **YouTube**, **Spotify** and **SoundCloud** streams only.
+By default, discord-portable-player supports **YouTube**, **Spotify**, **Apple Music** & **SoundCloud** streams only.
 
 ### Optional dependencies
 
