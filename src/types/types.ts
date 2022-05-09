@@ -58,6 +58,7 @@ export interface QueueFilters {
  * - youtube
  * - spotify
  * - arbitrary
+ * - applemusic
  * @typedef {string} TrackSource
  */
 export type TrackSource = "soundcloud" | "youtube" | "spotify" | "arbitrary" | "applemusic";
