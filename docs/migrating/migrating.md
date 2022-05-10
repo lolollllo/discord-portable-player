@@ -50,9 +50,9 @@ yarn add discord-portable-player
 + QueryType.YouTubeVideo
 ```
 
-#### Track Data
-- In previous versions, the owner of a video/track would be provided to you with the property `author`. This property has been renamed to `artist`
+#### Repeat Mode
+- `setRepeatMode()` was renamed to `setLoop()`
 
 ```diff
-- <Track>.author
-+ <Track>.artist
+- <Queue>.setRepeatMode()
++ <Queue>.setLoop()
