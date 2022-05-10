@@ -6,7 +6,7 @@ class ExtractorModel {
     private _raw: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
     /**
-     * Model for raw Discord Player extractors
+     * Model for raw Discord Portable Player extractors
      * @param {string} extractorName Name of the extractor
      * @param {object} data Extractor object
      */
@@ -52,7 +52,7 @@ class ExtractorModel {
                     thumbnail: m.thumbnail as string,
                     engine: m.engine,
                     views: m.views as number,
-                    artist: m.author as string,
+                    author: m.author as string,
                     description: m.description as string,
                     url: m.url as string,
                     source: m.source || "arbitrary"
