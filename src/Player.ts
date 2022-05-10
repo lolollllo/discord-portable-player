@@ -340,7 +340,7 @@ class Player extends EventEmitter<PlayerEvents> {
                 const track = new Track(this, {
                     title: info.videoDetails.title,
                     description: info.videoDetails.description,
-                    artist: info.videoDetails.author?.name,
+                    author: info.videoDetails.author?.name,
                     url: info.videoDetails.video_url,
                     requestedBy: options.requestedBy as User,
                     thumbnail: Util.last(info.videoDetails.thumbnails)?.url,
@@ -363,7 +363,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     return new Track(this, {
                         title: m.title,
                         description: m.description,
-                        artist: m.channel?.name,
+                        author: m.channel?.name,
                         url: m.url,
                         requestedBy: options.requestedBy as User,
                         thumbnail: m.thumbnail?.displayThumbnailURL("maxresdefault"),
@@ -393,7 +393,7 @@ class Player extends EventEmitter<PlayerEvents> {
                         description: trackInfo.description,
                         thumbnail: trackInfo.thumbnail,
                         views: trackInfo.playCount,
-                        artist: trackInfo.author.name,
+                        author: trackInfo.author.name,
                         requestedBy: options.requestedBy,
                         source: "soundcloud",
                         engine: trackInfo
@@ -410,7 +410,7 @@ class Player extends EventEmitter<PlayerEvents> {
                 const spotifyTrack = new Track(this, {
                     title: spotifyData.name,
                     description: spotifyData.description ?? "",
-                    artist: spotifyData.artists[0]?.name ?? "Unknown Artist",
+                    author: spotifyData.artists[0]?.name ?? "Unknown Artist",
                     url: spotifyData.external_urls?.spotify ?? query,
                     thumbnail:
                         spotifyData.album?.images[0]?.url ?? spotifyData.preview_url?.length
@@ -435,7 +435,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     thumbnail: spotifyPlaylist.images[0]?.url ?? "https://www.scdn.co/i/_global/twitter_card-default.jpg",
                     type: spotifyPlaylist.type,
                     source: "spotify",
-                    artist:
+                    author:
                         spotifyPlaylist.type !== "playlist"
                             ? {
                                   name: spotifyPlaylist.artists[0]?.name ?? "Unknown Artist",
@@ -457,7 +457,7 @@ class Player extends EventEmitter<PlayerEvents> {
                         const data = new Track(this, {
                             title: m.name ?? "",
                             description: m.description ?? "",
-                            artist: m.artists[0]?.name ?? "Unknown Artist",
+                            author: m.artists[0]?.name ?? "Unknown Artist",
                             url: m.external_urls?.spotify ?? query,
                             thumbnail: spotifyPlaylist.images[0]?.url ?? "https://www.scdn.co/i/_global/twitter_card-default.jpg",
                             duration: Util.buildTimeCode(Util.parseMS(m.duration_ms)),
@@ -475,7 +475,7 @@ class Player extends EventEmitter<PlayerEvents> {
                         const data = new Track(this, {
                             title: m.track.name ?? "",
                             description: m.track.description ?? "",
-                            artist: m.track.artists[0]?.name ?? "Unknown Artist",
+                            author: m.track.artists[0]?.name ?? "Unknown Artist",
                             url: m.track.external_urls?.spotify ?? query,
                             thumbnail: m.track.album?.images[0]?.url ?? "https://www.scdn.co/i/_global/twitter_card-default.jpg",
                             duration: Util.buildTimeCode(Util.parseMS(m.track.duration_ms)),
@@ -501,7 +501,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     thumbnail: data.thumbnail ?? "https://soundcloud.com/pwa-icon-192.png",
                     type: "playlist",
                     source: "soundcloud",
-                    artist: {
+                    author: {
                         name: data.author?.name ?? data.author?.username ?? "Unknown Artist",
                         url: data.author?.profile
                     },
@@ -515,7 +515,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     const track = new Track(this, {
                         title: song.title,
                         description: song.description ?? "",
-                        artist: song.author?.username ?? song.author?.name ?? "Unknown Artist",
+                        author: song.author?.username ?? song.author?.name ?? "Unknown Artist",
                         url: song.url,
                         thumbnail: song.thumbnail,
                         duration: Util.buildTimeCode(Util.parseMS(song.duration)),
@@ -542,7 +542,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     description: "",
                     type: "playlist",
                     source: "youtube",
-                    artist: {
+                    author: {
                         name: ytpl.channel.name,
                         url: ytpl.channel.url
                     },
@@ -557,7 +557,7 @@ class Player extends EventEmitter<PlayerEvents> {
                         new Track(this, {
                             title: video.title,
                             description: video.description,
-                            artist: video.channel?.name,
+                            author: video.channel?.name,
                             url: video.url,
                             requestedBy: options.requestedBy as User,
                             thumbnail: video.thumbnail.url,
