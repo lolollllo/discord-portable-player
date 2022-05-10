@@ -11,6 +11,7 @@ import AudioFilters from "../utils/AudioFilters";
 import { PlayerError, ErrorStatusCode } from "./PlayerError";
 import type { Readable } from "stream";
 import { VolumeTransformer } from "../VoiceInterface/VolumeTransformer";
+import { ChannelType } from "discord-api-types/v10";
 
 class Queue<T = unknown> {
     public readonly guild: Guild;
@@ -152,14 +153,14 @@ class Queue<T = unknown> {
     async connect(channel: GuildChannelResolvable) {
         if (this.#watchDestroyed()) return;
         const _channel = this.guild.channels.resolve(channel) as StageChannel | VoiceChannel;
-        if (!["GUILD_STAGE_VOICE", "GUILD_VOICE"].includes(_channel?.type))
-            throw new PlayerError(`Channel type must be GUILD_VOICE or GUILD_STAGE_VOICE, got ${_channel?.type}!`, ErrorStatusCode.INVALID_ARG_TYPE);
+        if (![ChannelType.GuildStageVoice, ChannelType.GuildVoice].includes(_channel?.type))
+            throw new PlayerError(`Channel type must be GuildVoice or GuildStageVoice, got ${_channel?.type}!`, ErrorStatusCode.INVALID_ARG_TYPE);
         const connection = await this.player.voiceUtils.connect(_channel, {
             deaf: this.options.autoSelfDeaf
         });
         this.connection = connection;
 
-        if (_channel.type === "GUILD_STAGE_VOICE") {
+        if (_channel.type === ChannelType.GuildStageVoice) {
             await _channel.guild.me.voice.setSuppressed(false).catch(async () => {
                 return await _channel.guild.me.voice.setRequestToSpeak(true).catch(Util.noop);
             });
@@ -299,10 +300,10 @@ class Queue<T = unknown> {
     }
     /**
      * Sets repeat mode
-     * @param  {QueueRepeatMode} mode The repeat mode
+     * @param  {LoopMode} mode The repeat mode
      * @returns {boolean}
      */
-    setLoop(mode: QueueRepeatMode) {
+    setLoop(mode: LoopMode) {
         if (this.#watchDestroyed()) return;
         if (![QueueRepeatMode.Off, QueueRepeatMode.Queue, QueueRepeatMode.Track, QueueRepeatMode.Autoplay].includes(mode))
             throw new PlayerError(`Unknown repeat mode "${mode}"!`, ErrorStatusCode.UNKNOWN_REPEAT_MODE);
@@ -529,7 +530,7 @@ class Queue<T = unknown> {
         if (this.#watchDestroyed()) return;
         const trackIndex = this.getTrackPosition(track);
         const removedTrack = this.remove(track);
-        if (!removedTrack) throw new PlayerError("Track not found", ErrorStatusCode.TRACK_NOT_FOUND);
+        if (!removedTrack) throw new PlayerError("Track was not found", ErrorStatusCode.TRACK_NOT_FOUND);
 
         this.tracks.splice(0, trackIndex, removedTrack);
 
@@ -626,7 +627,7 @@ class Queue<T = unknown> {
      */
     async play(src?: Track, options: PlayOptions = {}): Promise<void> {
         if (this.#watchDestroyed(false)) return;
-        if (!this.connection || !this.connection.voiceConnection) throw new PlayerError("Voice connection is not available, use <Queue>.connect()!", ErrorStatusCode.NO_CONNECTION);
+        if (!this.connection || !this.connection.voiceConnection) throw new PlayerError("Voice connection is not available, use Queue#connect()!", ErrorStatusCode.NO_CONNECTION);
         if (src && (this.playing || this.tracks.length) && !options.immediate) return this.addTrack(src);
         const track = options.filtersUpdate && !options.immediate ? src || this.current : src ?? this.tracks.shift();
         if (!track) return;
