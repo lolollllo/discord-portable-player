@@ -67,7 +67,7 @@ export type TrackSource = "soundcloud" | "youtube" | "spotify" | "arbitrary" | "
  * @typedef {object} RawTrackData
  * @property {string} title The title
  * @property {string} description The description
- * @property {string} artist The artist of the track
+ * @property {string} author The artist/author of the track
  * @property {string} url The url
  * @property {string} thumbnail The thumbnail
  * @property {string} duration The duration
@@ -82,7 +82,7 @@ export type TrackSource = "soundcloud" | "youtube" | "spotify" | "arbitrary" | "
 export interface RawTrackData {
     title: string;
     description: string;
-    artist: string;
+    author: string;
     url: string;
     thumbnail: string;
     duration: string;
@@ -403,7 +403,7 @@ export enum LoopMode {
  * @property {string} thumbnail The thumbnail
  * @property {album|playlist} type The playlist type: `album` | `playlist`
  * @property {TrackSource} source The playlist source
- * @property {object} author The author 
+ * @property {object} author The playlist author
  * @property {string} [author.name] The author name
  * @property {string} [author.url] The author url
  * @property {string} id The playlist id
@@ -430,7 +430,7 @@ export interface PlaylistInitData {
  * @typedef {object} TrackJSON
  * @property {string} title The track title
  * @property {string} description The track description
- * @property {string} artist artist of this track
+ * @property {string} author The author
  * @property {string} url The url
  * @property {string} thumbnail The thumbnail
  * @property {string} duration The duration
@@ -443,7 +443,7 @@ export interface TrackJSON {
     id: Snowflake;
     title: string;
     description: string;
-    artist: string;
+    author: string;
     url: string;
     thumbnail: string;
     duration: string;
@@ -452,6 +452,7 @@ export interface TrackJSON {
     requestedBy: Snowflake;
     playlist?: PlaylistJSON;
 }
+
 
 /**
  * @typedef {object} PlaylistJSON
