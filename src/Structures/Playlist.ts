@@ -75,6 +75,7 @@ class Playlist {
          * - `soundcloud`
          * - `spotify`
          * - `arbitrary`
+         * - `applemusic`
          * @name Playlist#source
          * @type {string}
          */
