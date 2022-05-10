@@ -8,7 +8,7 @@ class Track {
     public player!: Player;
     public title!: string;
     public description!: string;
-    public artist!: string;
+    public author!: string;
     public url!: string;
     public thumbnail!: string;
     public duration!: string;
@@ -45,8 +45,8 @@ class Track {
          */
 
         /**
-         * Artist of this track
-         * @name Track#artist
+         * Author/artist of this track
+         * @name Track#author
          * @type {string}
          */
 
@@ -173,7 +173,7 @@ class Track {
             id: this.id,
             title: this.title,
             description: this.description,
-            artist: this.author,
+            author: this.author,
             url: this.url,
             thumbnail: this.thumbnail,
             duration: this.duration,
