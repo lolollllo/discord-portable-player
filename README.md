@@ -1,5 +1,6 @@
 # Discord Portable Player
 Complete framework to facilitate music commands using **[discord.js](https://discord.js.org)**.
+**⚠️ THIS IS A DEV VERSION OF DISCORD PORTABLE PLAYER AND ITS NOT STABLE. INSTALLING THIS VERSION MIGHT BREAK YOUR CURRENT CODE AS THERE ARE A LOT OF BREAKING CHANGES AND BUGS WHICH ARE YET TO BE FIXED! ⚠️ USE AT YOUR OWN RISK! ⚠️** 
 
 [![downloadsBadge](https://img.shields.io/npm/dt/discord-portable-player?style=for-the-badge)](https://npmjs.com/discord-portable-player)
 [![versionBadge](https://img.shields.io/npm/v/discord-portable-player?style=for-the-badge)](https://npmjs.com/discord-portable-player)
