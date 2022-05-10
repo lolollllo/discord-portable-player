@@ -2,7 +2,7 @@ import { Collection, Guild, StageChannel, VoiceChannel, Snowflake, SnowflakeUtil
 import { Player } from "../Player";
 import { StreamDispatcher } from "../VoiceInterface/StreamDispatcher";
 import Track from "./Track";
-import { PlayerOptions, PlayerProgressbarOptions, PlayOptions, QueueFilters, QueueRepeatMode, TrackSource } from "../types/types";
+import { PlayerOptions, PlayerProgressbarOptions, PlayOptions, QueueFilters, LoopMode, TrackSource } from "../types/types";
 import ytdl from "discord-ytdl-core";
 import { AudioResource, StreamType } from "@discordjs/voice";
 import { Util } from "../utils/Util";
@@ -22,7 +22,7 @@ class Queue<T = unknown> {
     public options: PlayerOptions;
     public playing = false;
     public metadata?: T = null;
-    public repeatMode: QueueRepeatMode = 0;
+    public loopMode: LoopMode = 0;
     public readonly id: Snowflake = SnowflakeUtil.generate();
     private _streamTime = 0;
     public _cooldownsTimeout = new Collection<string, NodeJS.Timeout>();
@@ -60,9 +60,9 @@ class Queue<T = unknown> {
         this.options = {};
 
         /**
-         * Queue repeat mode
-         * @type {QueueRepeatMode}
-         * @name Queue#repeatMode
+         * Queue loop mode
+         * @type {LoopMode}
+         * @name Queue#LoopMode
          */
 
         /**
@@ -193,14 +193,14 @@ class Queue<T = unknown> {
 
             this.player.emit("trackEnd", this, resource.metadata);
 
-            if (!this.tracks.length && this.repeatMode === QueueRepeatMode.Off) {
+            if (!this.tracks.length && this.loopMode === LoopMode.Off) {
                 if (this.options.leaveOnEnd) this.destroy();
                 this.player.emit("queueEnd", this);
-            } else if (!this.tracks.length && this.repeatMode === QueueRepeatMode.Autoplay) {
+            } else if (!this.tracks.length && this.loopMode === LoopMode.Autoplay) {
                 this._handleAutoplay(Util.last(this.previousTracks));
             } else {
-                if (this.repeatMode === QueueRepeatMode.Track) return void this.play(Util.last(this.previousTracks), { immediate: true });
-                if (this.repeatMode === QueueRepeatMode.Queue) this.tracks.push(Util.last(this.previousTracks));
+                if (this.loopMode === LoopMode.Track) return void this.play(Util.last(this.previousTracks), { immediate: true });
+                if (this.loopMode === LoopMode.Queue) this.tracks.push(Util.last(this.previousTracks));
                 const nextTrack = this.tracks.shift();
                 this.play(nextTrack, { immediate: true });
                 return;
@@ -299,16 +299,16 @@ class Queue<T = unknown> {
         return this.connection.setVolume(amount);
     }
     /**
-     * Sets repeat mode
-     * @param  {LoopMode} mode The repeat mode
+     * Sets loop mode
+     * @param {LoopMode} loopmode The loop mode
      * @returns {boolean}
      */
-    setLoop(mode: LoopMode) {
+    setLoop(loopmode: LoopMode) {
         if (this.#watchDestroyed()) return;
-        if (![QueueRepeatMode.Off, QueueRepeatMode.Queue, QueueRepeatMode.Track, QueueRepeatMode.Autoplay].includes(mode))
-            throw new PlayerError(`Unknown repeat mode "${mode}"!`, ErrorStatusCode.UNKNOWN_REPEAT_MODE);
-        if (mode === this.repeatMode) return false;
-        this.repeatMode = mode;
+        if (![LoopMode.Off, LoopMode.Queue, LoopMode.Track, LoopMode.Autoplay].includes(loopmode))
+            throw new PlayerError(`Unknown loop mode "${loopmode}"!`, ErrorStatusCode.UNKNOWN_REPEAT_MODE);
+        if (loopmode === this.loopMode) return false;
+        this.loopMode = loopmode;
         return true;
     }
 
