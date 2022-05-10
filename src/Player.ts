@@ -8,7 +8,6 @@ import { QueryResolver } from "./utils/QueryResolver";
 import YouTube, { Video } from "youtube-sr";
 import { Util } from "./utils/Util";
 import fetch from 'cross-fetch';
-import Spotify from "spotify-url-info"(fetch);
 import { PlayerError, ErrorStatusCode } from "./Structures/PlayerError";
 import { getInfo as ytdlGetInfo } from "ytdl-core";
 import { Client as SoundCloud, SearchResult as SoundCloudSearchResult } from "soundcloud-scraper";
@@ -17,6 +16,7 @@ import { ExtractorModel } from "./Structures/ExtractorModel";
 import { generateDependencyReport } from "@discordjs/voice";
 import { RawAlbum, RawPlaylist, search } from "./utils/AppleMusic";
 
+const Spotify = require("spotify-url-info")(fetch)
 const soundcloud = new SoundCloud();
 
 class Player extends EventEmitter<PlayerEvents> {
