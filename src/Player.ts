@@ -147,12 +147,12 @@ class Player extends EventEmitter<PlayerEvents> {
      * Creates a queue for a guild if not available, else returns existing queue
      * @param {GuildResolvable} guild The guild
      * @param {PlayerOptions} queueInitOptions Queue init options
-     * @returns {guildQueue}
+     * @returns {Queue}
      */
     createGuildQueue<T = unknown>(guild: GuildResolvable, queueInitOptions: PlayerOptions & { metadata?: T } = {}): Queue<T> {
         guild = this.client.guilds.resolve(guild);
         if (!guild) throw new PlayerError("Unknown Guild", ErrorStatusCode.UNKNOWN_GUILD);
-        if (this.queues.has(guild.id)) return this.queues.get(guild.id) as guildQueue<T>;
+        if (this.queues.has(guild.id)) return this.queues.get(guild.id) as Queue<T>;
 
         const _meta = queueInitOptions.metadata;
         delete queueInitOptions["metadata"];
@@ -162,29 +162,29 @@ class Player extends EventEmitter<PlayerEvents> {
         queue.metadata = _meta;
         this.queues.set(guild.id, queue);
 
-        return queue as guildQueue<T>;
+        return queue as Queue<T>;
     }
 
     /**
      * Returns the queue if available
      * @param {GuildResolvable} guild The guild id
-     * @returns {guildQueue}
+     * @returns {Queue}
      */
-    getGuildQueue<T = unknown>(guild: GuildResolvable) {
+    getQueue<T = unknown>(guild: GuildResolvable) {
         guild = this.client.guilds.resolve(guild);
         if (!guild) throw new PlayerError("Unknown Guild", ErrorStatusCode.UNKNOWN_GUILD);
-        return this.queues.get(guild.id) as guildQueue<T>;
+        return this.queues.get(guild.id) as Queue<T>;
     }
 
     /**
      * Deletes a queue and returns deleted queue object
      * @param {GuildResolvable} guild The guild id to remove
-     * @returns {guildQueue}
+     * @returns {Queue}
      */
     deleteGuildQueue<T = unknown>(guild: GuildResolvable) {
         guild = this.client.guilds.resolve(guild);
         if (!guild) throw new PlayerError("Unknown Guild", ErrorStatusCode.UNKNOWN_GUILD);
-        const prev = this.getGuildQueue<T>(guild);
+        const prev = this.getQueue<T>(guild);
 
         try {
             prev.destroy();
