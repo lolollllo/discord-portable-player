@@ -47,7 +47,7 @@ class Player extends EventEmitter<PlayerEvents> {
          */
         this.client = client;
 
-        if (this.client?.options?.intents && !new Intents(this.client?.options?.intents).has(GatewayIntentBits.GuildVoiceStates)) {
+        if (this.client?.options?.intents && !new IntentsBitField(this.client?.options?.intents).has(GatewayIntentBits.GuildVoiceStates)) {
             throw new PlayerError('The client is missing "GuildVoiceStates" intent!');
         }
 
