@@ -181,7 +181,7 @@ export interface PlayerOptions {
  * @property {string} thumbnail The thumbnail
  * @property {string|Readable|Duplex} engine The stream engine
  * @property {number} views The views count
- * @property {string} artist The artist of the track
+ * @property {string} author The author
  * @property {string} description The description
  * @property {string} url The url
  * @property {string} [version] The extractor version
@@ -194,7 +194,7 @@ export interface ExtractorModelData {
         thumbnail: string;
         type: "album" | "playlist";
         source: TrackSource;
-        artist: {
+        author: {
             name: string;
             url: string;
         };
@@ -208,7 +208,7 @@ export interface ExtractorModelData {
         thumbnail: string;
         engine: string | Readable | Duplex;
         views: number;
-        artist: string;
+        author: string;
         description: string;
         url: string;
         version?: string;
@@ -381,14 +381,14 @@ export interface SearchOptions {
 }
 
 /**
- * The queue repeat mode. This can be one of:
- * - OFF
- * - TRACK
- * - QUEUE
- * - AUTOPLAY
- * @typedef {number} QueueRepeatMode
+ * The queue repeat loop mode. This can be one of:
+ * - Off
+ * - Track
+ * - Queue
+ * - Autoplay
+ * @typedef {number} LoopMode
  */
-export enum QueueRepeatMode {
+export enum LoopMode {
     Off = 0,
     Track = 1,
     Queue = 2,
@@ -403,7 +403,7 @@ export enum QueueRepeatMode {
  * @property {string} thumbnail The thumbnail
  * @property {album|playlist} type The playlist type: `album` | `playlist`
  * @property {TrackSource} source The playlist source
- * @property {object} author The playlist author
+ * @property {object} author The author 
  * @property {string} [author.name] The author name
  * @property {string} [author.url] The author url
  * @property {string} id The playlist id
@@ -417,7 +417,7 @@ export interface PlaylistInitData {
     thumbnail: string;
     type: "album" | "playlist";
     source: TrackSource;
-    artist: {
+    author: {
         name: string;
         url: string;
     };
@@ -430,7 +430,7 @@ export interface PlaylistInitData {
  * @typedef {object} TrackJSON
  * @property {string} title The track title
  * @property {string} description The track description
- * @property {string} author The author
+ * @property {string} artist artist of this track
  * @property {string} url The url
  * @property {string} thumbnail The thumbnail
  * @property {string} duration The duration
@@ -475,7 +475,7 @@ export interface PlaylistJSON {
     thumbnail: string;
     type: "album" | "playlist";
     source: TrackSource;
-    artist: {
+    author: {
         name: string;
         url: string;
     };
