@@ -127,16 +127,13 @@ class Player extends EventEmitter<PlayerEvents> {
                     }
                 }
             } else {
-                if (oldState.channelId === queue.connection.channel.id) {
-                    if (!Util.isVoiceEmpty(queue.connection.channel)) return;
-                    const timeout = setTimeout(() => {
-                        if (!Util.isVoiceEmpty(queue.connection.channel)) return;
-                        if (!this.queues.has(queue.guild.id)) return;
-                        if (queue.options.leaveOnEmpty) queue.destroy();
-                        this.emit("channelEmpty", queue);
-                    }, queue.options.leaveOnEmptyCooldown || 0).unref();
-                    queue._cooldownsTimeout.set(`empty_${oldState.guild.id}`, timeout);
-                }
+                const timeout = setTimeout(() => {
+                    if (queue.connection && !Util.isVoiceEmpty(queue.connection.channel)) return;
+                    if (!this.queues.has(queue.guild.id)) return;
+                    if (queue.options.leaveOnEmpty) queue.destroy();
+                    this.emit("channelEmpty", queue);
+                }, queue.options.leaveOnEmptyCooldown || 0).unref();
+                queue._cooldownsTimeout.set(`empty_${oldState.guild.id}`, timeout);
             }
         }
     }
