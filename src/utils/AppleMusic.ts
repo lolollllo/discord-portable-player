@@ -9,7 +9,7 @@ export interface Artist {
 }
 
 export interface Track {
-    artist: Artist;
+    author: Artist;
     duration: number;
     title: string;
     url: string;
@@ -17,7 +17,7 @@ export interface Track {
 }
 
 export interface RawAlbum {
-    artist: Artist;
+    author: Artist;
     description: string;
     numTracks: number;
     title: string;
@@ -46,7 +46,7 @@ function getRawPlaylist(document: string): RawPlaylist {
         const lookArtist = $(song).find("div.songs-list__col--artist").find("a.songs-list-row__link");
 
         const track: Track = {
-            artist: {
+            author: {
                 name: lookArtist.text(),
                 url: lookArtist.attr("href") ?? ""
             },
@@ -91,7 +91,7 @@ function getRawAlbum(document: string): RawAlbum {
 
     const product = $("div.product-page-header");
     const creator = product.find("div.product-creator").find("a.dt-link-to");
-    const artist = {
+    const author = {
         name: creator.text().trim(),
         url: creator.attr("href") ?? ""
     };
@@ -100,7 +100,7 @@ function getRawAlbum(document: string): RawAlbum {
     const songList = $("div.songs-list-row").toArray();
     songList.forEach((song) => {
         const track: Track = {
-            artist,
+            author,
             title: $(song).find("div.songs-list__col--song").find("div.songs-list-row__song-name").text(),
             duration: $(song)
                 .find("div.songs-list__col--time")
@@ -122,7 +122,7 @@ function getRawAlbum(document: string): RawAlbum {
     const playlist: RawAlbum = {
         title: product.find("h1.product-name").text().trim(),
         description: product.find("div.product-page-header__metadata--notes").text().trim(),
-        artist,
+        author,
         tracks,
         numTracks: tracks.length,
         type: "album",
@@ -199,7 +199,7 @@ async function makeData(query: string): Promise<ExtractorModelData> {
                     thumbnail: videos[0].thumbnail.url,
                     engine: "youtube",
                     views: 0,
-                    artist: music_data.artist.name,
+                    author: music_data.artist.name,
                     description: videos[0].description,
                     url: videos[0].url,
                     source: "applemusic" as TrackSource
@@ -216,7 +216,7 @@ async function makeData(query: string): Promise<ExtractorModelData> {
                     thumbnail: m.thumbnail as string,
                     engine: m.engine,
                     views: m.views as number,
-                    artist: m.author as string,
+                    author: m.author as string,
                     description: m.description as string,
                     url: m.url as string,
                     source: m.source
@@ -254,7 +254,7 @@ async function makeData(query: string): Promise<ExtractorModelData> {
                 thumbnail: videos[0].thumbnail.url as string,
                 engine: "youtube",
                 views: 0,
-                artist: videos[0].channel.name,
+                author: videos[0].channel.name,
                 description: videos[0].description as string,
                 url: videos[0].url as string,
                 source: "applemusic" as TrackSource
@@ -271,7 +271,7 @@ async function makeData(query: string): Promise<ExtractorModelData> {
                     thumbnail: m.thumbnail as string,
                     engine: m.engine,
                     views: m.views as number,
-                    artist: m.author as string,
+                    author: m.author as string,
                     description: m.description as string,
                     url: m.url as string,
                     source: m.source
