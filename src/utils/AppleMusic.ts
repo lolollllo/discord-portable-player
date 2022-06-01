@@ -199,7 +199,7 @@ async function makeData(query: string): Promise<ExtractorModelData> {
                     thumbnail: videos[0].thumbnail.url,
                     engine: "youtube",
                     views: 0,
-                    author: music_data.artist.name,
+                    author: music_data.author.name,
                     description: videos[0].description,
                     url: videos[0].url,
                     source: "applemusic" as TrackSource
@@ -236,8 +236,8 @@ async function makeData(query: string): Promise<ExtractorModelData> {
                 id: "",
                 type: music_data.type === "playlist" ? "playlist" : "album",
                 author: {
-                    name: music_data.type === "playlist" ? music_data.creator.name : music_data.artist.name,
-                    url: music_data.type === "playlist" ? music_data.creator.url : music_data.artist.url
+                    name: music_data.type === "playlist" ? music_data.creator.name : music_data.author.name,
+                    url: music_data.type === "playlist" ? music_data.creator.url : music_data.author.url
                 }
             }
         };
