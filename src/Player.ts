@@ -92,7 +92,7 @@ class Player extends EventEmitter<PlayerEvents> {
                 queue._cooldownsTimeout.set(`empty_${oldState.guild.id}`, timeout);
             }
 
-            if (!oldState.channelId && newState.channelId && newState.member.id === newState.members.guild.me.id) {
+            if (!oldState.channelId && newState.channelId && newState.member.id === newState.guild.members.me.id) {
                 if (newState.serverMute || !newState.serverMute) {
                     queue.setPaused(newState.serverMute);
                 } else if (newState.suppress || !newState.suppress) {
