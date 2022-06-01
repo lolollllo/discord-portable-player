@@ -110,7 +110,7 @@ class Track {
 
     private _patch(data: RawTrackData) {
         this.title = Util.escapeMarkdown(data.title ?? "");
-        this.artist = data.author ?? "";
+        this.author = data.author ?? "";
         this.url = data.url ?? "";
         this.thumbnail = data.thumbnail ?? "";
         this.duration = data.duration ?? "";
