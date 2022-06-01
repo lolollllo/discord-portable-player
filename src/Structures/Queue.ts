@@ -1,4 +1,4 @@
-import { Collection, Guild, StageChannel, VoiceChannel, Snowflake, SnowflakeUtil, GuildChannelResolvable } from "discord.js";
+import { Collection, Guild, StageChannel, VoiceChannel, Snowflake, SnowflakeUtil, GuildChannelResolvable, ChannelType } from "discord.js";
 import { Player } from "../Player";
 import { StreamDispatcher } from "../VoiceInterface/StreamDispatcher";
 import Track from "./Track";
@@ -11,7 +11,6 @@ import AudioFilters from "../utils/AudioFilters";
 import { PlayerError, ErrorStatusCode } from "./PlayerError";
 import type { Readable } from "stream";
 import { VolumeTransformer } from "../VoiceInterface/VolumeTransformer";
-import { ChannelType } from "discord-api-types/v10";
 
 class Queue<T = unknown> {
     public readonly guild: Guild;
