@@ -302,8 +302,8 @@ class Player extends EventEmitter<PlayerEvents> {
                     type: "playlist",
                     source: "applemusic",
                     author: {
-                        name: data.type === "playlist" ? data.creator.name : data.artist.name,
-                        url: data.type === "playlist" ? data.creator.url : data.artist.url
+                        name: data.type === "playlist" ? data.creator.name : data.author.name,
+                        url: data.type === "playlist" ? data.creator.url : data.author.url
                     },
                     tracks: [],
                     id: "",
@@ -319,7 +319,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     const data = new Track(this, {
                         title: videos[0].title ?? "",
                         description: videos[0].description ?? "",
-                        author: m.artist.name ?? "Unknown Artist",
+                        author: m.author.name ?? "Unknown Artist",
                         url: videos[0].url,
                         thumbnail: videos[0].thumbnail.url ?? "https://www.scdn.co/i/_global/twitter_card-default.jpg",
                         duration: videos[0].durationFormatted,
