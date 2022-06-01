@@ -160,7 +160,7 @@ class Queue<T = unknown> {
         this.connection = connection;
 
         if (_channel.type === ChannelType.GuildStageVoice) {
-            await _channel.guild.me.voice.setSuppressed(false).catch(async () => {
+            await _channel.guild.members.me.voice.setSuppressed(false).catch(async () => {
                 return await _channel.guild.members.me.voice.setRequestToSpeak(true).catch(Util.noop);
             });
         }
