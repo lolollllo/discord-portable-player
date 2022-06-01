@@ -80,8 +80,8 @@ class Player extends EventEmitter<PlayerEvents> {
         if (!queue) return;
 
         if (oldState.channelId && newState && oldState.channelId !== newState.channelId) {
-            if (queue?.connection && newState.member.id === newState.guild.me.id) queue.connection.channel = newState.channel;
-            if (queue.connection.channel && newState.member.id === newState.guild.me.id || (newState.member.id !== newState.guild.me.id && oldState.channelId === queue.connection.channel.id)) {
+            if (queue?.connection && newState.member.id === newState.guild.members.me.id) queue.connection.channel = newState.channel;
+            if (queue.connection.channel && newState.member.id === newState.guild.members.me.id || (newState.member.id !== newState.guild.members.me.id && oldState.channelId === queue.connection.channel.id)) {
                 if (!Util.isVoiceEmpty(queue.connection.channel)) return;
                 const timeout = setTimeout(() => {
                     if (!Util.isVoiceEmpty(queue.connection.channel)) return;
@@ -96,16 +96,16 @@ class Player extends EventEmitter<PlayerEvents> {
                 if (newState.serverMute || !newState.serverMute) {
                     queue.setPaused(newState.serverMute);
                 } else if (newState.suppress || !newState.suppress) {
-                    if (newState.suppress) newState.guild.me.voice.setRequestToSpeak(true).catch(Util.noop);
+                    if (newState.suppress) newState.guild.members.me.voice.setRequestToSpeak(true).catch(Util.noop);
                     queue.setPaused(newState.suppress);
                 }
             }
 
-            if (oldState.channelId === newState.channelId && oldState.member.id === newState.guild.me.id) {
+            if (oldState.channelId === newState.channelId && oldState.member.id === newState.guild.members.me.id) {
                 if (oldState.serverMute !== newState.serverMute) {
                     queue.setPaused(newState.serverMute);
                 } else if (oldState.suppress !== newState.suppress) {
-                    if (newState.suppress) newState.guild.me.voice.setRequestToSpeak(true).catch(Util.noop);
+                    if (newState.suppress) newState.guild.members.me.voice.setRequestToSpeak(true).catch(Util.noop);
                     queue.setPaused(newState.suppress);
                 }
             }
