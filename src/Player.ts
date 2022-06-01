@@ -1,4 +1,4 @@
-import { Client, Collection, GuildResolvable, Snowflake, User, VoiceState, GatewayIntentBits } from "discord.js";
+import { Client, Collection, GuildResolvable, Snowflake, User, VoiceState, GatewayIntentBits, IntentsBitField } from "discord.js";
 import { TypedEmitter as EventEmitter } from "tiny-typed-emitter";
 import { Queue } from "./Structures/Queue";
 import { VoiceUtils } from "./VoiceInterface/VoiceUtils";
@@ -47,7 +47,7 @@ class Player extends EventEmitter<PlayerEvents> {
          */
         this.client = client;
 
-        if (this.client?.options?.intents && !new IntentsBitfield(this.client?.options?.intents).has(GatewayIntentBits.GuildVoiceStates)) {
+        if (this.client?.options?.intents && !new IntentsBitField(this.client?.options?.intents).has(GatewayIntentBits.GuildVoiceStates)) {
             throw new PlayerError('The client is missing "GuildVoiceStates" intent!');
         }
 
