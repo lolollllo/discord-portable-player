@@ -162,7 +162,7 @@ class Queue<T = unknown> {
 
         if (_channel.type === ChannelType.GuildStageVoice) {
             await _channel.guild.me.voice.setSuppressed(false).catch(async () => {
-                return await _channel.guild.me.voice.setRequestToSpeak(true).catch(Util.noop);
+                return await _channel.guild.members.me.voice.setRequestToSpeak(true).catch(Util.noop);
             });
         }
 
