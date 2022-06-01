@@ -77,19 +77,6 @@ class Player extends EventEmitter<PlayerEvents> {
         const queue = this.getQueue(oldState.guild.id);
         if (!queue) return;
 
-        if (oldState.channelId && newState && oldState.channelId !== newState.channelId) {
-            if (queue?.connection && newState.member.id === newState.guild.me.id) queue.connection.channel = newState.channel;
-            if (queue.connection.channel && newState.member.id === newState.guild.me.id || (newState.member.id !== newState.guild.me.id && oldState.channelId === queue.connection.channel.id)) {
-                if (!Util.isVoiceEmpty(queue.connection.channel)) return;
-                const timeout = setTimeout(() => {
-                    if (!Util.isVoiceEmpty(queue.connection.channel)) return;
-                    if (!this.queues.has(queue.guild.id)) return;
-                    if (queue.options.leaveOnEmpty) queue.destroy();
-                    this.emit("channelEmpty", queue);
-                }, queue.options.leaveOnEmptyCooldown || 0).unref();
-                queue._cooldownsTimeout.set(`empty_${oldState.guild.id}`, timeout);
-            }
-
             if (!oldState.channelId && newState.channelId && newState.member.id === newState.guild.me.id) {
                 if (newState.serverMute || !newState.serverMute) {
                     queue.setPaused(newState.serverMute);
@@ -115,7 +102,7 @@ class Player extends EventEmitter<PlayerEvents> {
             }
 
               
-        if (queue.connection && !newState.channelId && oldState.channelId === queue.connection.channel.id) {
+        if (!newState.channelId && oldState.channelId === queue.connection.channel.id) {
             if (!Util.isVoiceEmpty(queue.connection.channel)) return;
             const timeout = setTimeout(() => {
                 if (!Util.isVoiceEmpty(queue.connection.channel)) return;
