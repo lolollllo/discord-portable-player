@@ -76,6 +76,10 @@ class Player extends EventEmitter<PlayerEvents> {
     private _handleVoiceState(oldState: VoiceState, newState: VoiceState): void {
         const queue = this.getQueue(oldState.guild.id);
         if (!queue) return;
+        
+           if (oldState.channelId && newState && oldState.channelId !== newState.channelId) {
+            if (queue?.connection && newState.member.id === newState.guild.me.id) queue.connection.channel = newState.channel;
+            if (queue.connection.channel && newState.member.id === newState.guild.me.id || (newState.member.id !== newState.guild.me.id && oldState.channelId === queue.connection.channel.id)) {
 
             if (!oldState.channelId && newState.channelId && newState.member.id === newState.guild.me.id) {
                 if (newState.serverMute || !newState.serverMute) {
