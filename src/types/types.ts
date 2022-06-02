@@ -155,6 +155,14 @@ export interface PlayerOptions {
     onBeforeCreateStream?: (track: Track, source: TrackSource, queue: Queue) => Promise<Readable>;
 }
 
+/**
+ * @typedef {object} QueueOptions
+ * @property {boolean} [leaveOnEnd=true] If it should leave on end
+ * @property {boolean} [leaveOnStop=true] If it should leave on stop
+ * @property {boolean} [leaveOnEmpty=true] If it should leave on empty
+ * @property {number} [leaveOnEmptyCooldown=1000] The cooldown in ms
+ * @property {boolean} [autoSelfDeaf=true] If it should set the bot in deaf mode
+ */
 export interface QueueOptions {
     leaveOnEnd?: boolean;
     leaveOnStop?: boolean;
