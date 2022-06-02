@@ -17,10 +17,14 @@
   files:
     - name: Custom Filters
       path: custom_filters.md
-    - name: Slash Commands
-      path: slash_commands.md
     - name: How Does It Work
       path: how_does_it_work.md
+- name: Examples
+  files:
+    - name: Creating your bot
+      path: create-your-bot.md
+    - name: Simple play Command
+      path: simple-play-command.md
 - name: YouTube
   files:
     - name: Using Cookies
