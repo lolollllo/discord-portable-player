@@ -2,7 +2,7 @@ import { Collection, Guild, StageChannel, VoiceChannel, Snowflake, SnowflakeUtil
 import { Player } from "../Player";
 import { StreamDispatcher } from "../VoiceInterface/StreamDispatcher";
 import Track from "./Track";
-import { PlayerOptions, PlayerProgressbarOptions, PlayOptions, QueueFilters, QueueRepeatMode, TrackSource } from "../types/types";
+import { PlayerOptions, QueueOptions, PlayerProgressbarOptions, PlayOptions, QueueFilters, QueueRepeatMode, TrackSource } from "../types/types";
 import ytdl from "discord-ytdl-core";
 import { AudioResource, StreamType } from "@discordjs/voice";
 import { Util } from "../utils/Util";
@@ -18,7 +18,7 @@ class Queue<T = unknown> {
     public connection: StreamDispatcher;
     public tracks: Track[] = [];
     public previousTracks: Track[] = [];
-    public options: PlayerOptions;
+    public options: QueueOptions;
     public playing = false;
     public metadata?: T = null;
     public repeatMode: QueueRepeatMode = 0;
