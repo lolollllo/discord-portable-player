@@ -18,7 +18,7 @@ class Queue<T = unknown> {
     public connection: StreamDispatcher;
     public tracks: Track[] = [];
     public previousTracks: Track[] = [];
-    public options: QueueOptions;
+    public options: PlayerOptions;
     public playing = false;
     public metadata?: T = null;
     public repeatMode: QueueRepeatMode = 0;
