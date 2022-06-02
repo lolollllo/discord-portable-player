@@ -1,6 +1,6 @@
 {
   "name": "discord-portable-player",
-  "version": "1.3.4",
+  "version": "1.4.0-dev.96714fa",
   "description": "Easy to use, framework to facilitate music commands using discord.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
