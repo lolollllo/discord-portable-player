@@ -155,6 +155,14 @@ export interface PlayerOptions {
     onBeforeCreateStream?: (track: Track, source: TrackSource, queue: Queue) => Promise<Readable>;
 }
 
+export interface QueueOptions {
+    leaveOnEnd?: boolean;
+    leaveOnStop?: boolean;
+    leaveOnEmpty?: boolean;
+    leaveOnEmptyCooldown?: number;
+    autoSelfDeaf?: boolean;
+}
+
 /**
  * @typedef {object} ExtractorModelData
  * @property {object} [playlist] The playlist info (if any)
