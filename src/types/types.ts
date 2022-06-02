@@ -156,22 +156,6 @@ export interface PlayerOptions {
 }
 
 /**
- * @typedef {object} QueueOptions
- * @property {boolean} [leaveOnEnd=true] If it should leave on end
- * @property {boolean} [leaveOnStop=true] If it should leave on stop
- * @property {boolean} [leaveOnEmpty=true] If it should leave on empty
- * @property {number} [leaveOnEmptyCooldown=1000] The cooldown in ms
- * @property {boolean} [autoSelfDeaf=true] If it should set the bot in deaf mode
- */
-export interface QueueOptions {
-    leaveOnEnd?: boolean;
-    leaveOnStop?: boolean;
-    leaveOnEmpty?: boolean;
-    leaveOnEmptyCooldown?: number;
-    autoSelfDeaf?: boolean;
-}
-
-/**
  * @typedef {object} ExtractorModelData
  * @property {object} [playlist] The playlist info (if any)
  * @property {string} [playlist.title] The playlist title
