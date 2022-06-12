@@ -5,46 +5,46 @@ const bass = (g: number) => `bass=g=${g}:f=110:w=0.3`;
 /**
  * The available audio filters
  * @typedef {object} AudioFilters
- * @property {string} bassboost_low The bassboost filter (+15dB)
- * @property {string} bassboost The bassboost filter (+20dB)
- * @property {string} bassboost_high The bassboost filter (+30dB)
- * @property {string} 8D The 8D filter
- * @property {string} vaporwave The vaporwave filter
- * @property {string} nightcore The nightcore filter
- * @property {string} phaser The phaser filter
- * @property {string} tremolo The tremolo filter
- * @property {string} vibrato The vibrato filter
- * @property {string} reverse The reverse filter
- * @property {string} treble The treble filter
- * @property {string} normalizer The normalizer filter (dynamic audio normalizer based)
- * @property {string} normalizer2 The normalizer filter (audio compressor based)
- * @property {string} surrounding The surrounding filter
- * @property {string} pulsator The pulsator filter
- * @property {string} subboost The subboost filter
- * @property {string} karaoke The kakaoke filter
- * @property {string} flanger The flanger filter
- * @property {string} gate The gate filter
- * @property {string} haas The haas filter
- * @property {string} mcompand The mcompand filter
- * @property {string} mono The mono filter
- * @property {string} mstlr The mstlr filter
- * @property {string} mstrr The mstrr filter
- * @property {string} compressor The compressor filter
- * @property {string} expander The expander filter
- * @property {string} softlimiter The softlimiter filter
- * @property {string} chorus The chorus filter
- * @property {string} chorus2d The chorus2d filter
- * @property {string} chorus3d The chorus3d filter
- * @property {string} fadein The fadein filter
- * @property {string} dim The dim filter
- * @property {string} earrape The earrape filter
+ * @property {boolean} bassboost_low The bassboost filter (+15dB)
+ * @property {boolean} bassboost The bassboost filter (+20dB)
+ * @property {boolean} bassboost_high The bassboost filter (+30dB)
+ * @property {boolean} eight_d The 8D filter
+ * @property {boolean} vaporwave The vaporwave filter
+ * @property {boolean} nightcore The nightcore filter
+ * @property {boolean} phaser The phaser filter
+ * @property {boolean} tremolo The tremolo filter
+ * @property {boolean} vibrato The vibrato filter
+ * @property {boolean} reverse The reverse filter
+ * @property {boolean} treble The treble filter
+ * @property {boolean} normalizer The normalizer filter (dynamic audio normalizer based)
+ * @property {boolean} normalizer2 The normalizer filter (audio compressor based)
+ * @property {boolean} surrounding The surrounding filter
+ * @property {boolean} pulsator The pulsator filter
+ * @property {boolean} subboost The subboost filter
+ * @property {boolean} karaoke The kakaoke filter
+ * @property {boolean} flanger The flanger filter
+ * @property {boolean} gate The gate filter
+ * @property {boolean} haas The haas filter
+ * @property {boolean} mcompand The mcompand filter
+ * @property {boolean} mono The mono filter
+ * @property {boolean} mstlr The mstlr filter
+ * @property {boolean} mstrr The mstrr filter
+ * @property {boolean} compressor The compressor filter
+ * @property {boolean} expander The expander filter
+ * @property {boolean} softlimiter The softlimiter filter
+ * @property {boolean} chorus The chorus filter
+ * @property {boolean} chorus2d The chorus2d filter
+ * @property {boolean} chorus3d The chorus3d filter
+ * @property {boolean} fadein The fadein filter
+ * @property {boolean} dim The dim filter
+ * @property {boolean} earrape The earrape filter
  */
 
 const FilterList = {
     bassboost_low: bass(15),
     bassboost: bass(20),
     bassboost_high: bass(30),
-    "8D": "apulsator=hz=0.09",
+    eight_d: "apulsator=hz=0.09",
     vaporwave: "aresample=48000,asetrate=48000*0.8",
     nightcore: "aresample=48000,asetrate=48000*1.25",
     phaser: "aphaser=in_gain=0.4",
