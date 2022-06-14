@@ -34,30 +34,23 @@ A simple & easy to use, beginner friendly package with amazing features such as 
 First of all, you will need to register slash commands:
 
 ```js
+const { token, clientId } = require('./config.json');
 const { REST } = require("@discordjs/rest");
-const { ApplicationCommandOptionType, Routes } = require("discord.js");
+const { Routes, SlashCommandBuilder } = require("discord.js");
 
-const commands = [{
-    name: "play",
-    description: "Plays a song!",
-    options: [
-        {
-            name: "query",
-            type: ApplicationCommandOptionType.String,
-            description: "The song you want to play",
-            required: true
-        }
-    ]
-}]; 
-
-const rest = new REST({ version: "10" }).setToken(process.env.token);
+const commands = [
+	new SlashCommandBuilder().setName('play').setDescription('play a song').addStringOption(option => option.setName('query').setDescription('The query to search for).setRequired(true))
+]
+	.map(command => command.toJSON());
+    
+const rest = new REST({ version: "10" }).setToken(token);
 
 (async () => {
   try {
     console.log("Started refreshing application [/] commands.");
 
     await rest.put(
-      Routes.applicationGuildCommands(clientId, guildId),
+      Routes.applicationCommands(clientId),
       { body: commands },
     );
 
@@ -73,6 +66,7 @@ Now you can implement your bot's logic:
 ```js
 const { Client, GatewayIntentBits } = require("discord.js");
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildVoiceStates]});
+const { token } = require('./config.json');
 const { Player } = require("discord-portable-player");
 
 // Create a new Player (you don't need any API Key)
@@ -91,8 +85,8 @@ client.on("interactionCreate", async (interaction) => {
     // /play track: Marshmello - Together
 
     if (interaction.commandName === "play") {
-        if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
-        if (interaction.guild.members.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.members.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+        if (!interaction.member.voice.channel) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
+        if (interaction.guild.members.me.voice.channel && interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
         const query = interaction.options.getString("query")
         const queue = player.createGuildQueue(interaction.guild, {
             metadata: {
@@ -120,7 +114,7 @@ client.on("interactionCreate", async (interaction) => {
     }
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(token);
 ```
 
 ## Supported Sources
