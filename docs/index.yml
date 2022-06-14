@@ -22,7 +22,7 @@
 - name: Examples
   files:
     - name: Creating your bot
-      path: create-your-bot.md
+      path: creating-your-bot.md
     - name: Simple play Command
       path: simple-play-command.md
 - name: YouTube
