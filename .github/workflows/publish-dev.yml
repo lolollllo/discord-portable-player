@@ -1,5 +1,8 @@
 name: NPM Publish (dev)
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */12 * * *'
 
 jobs:
   build:
@@ -14,7 +17,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies and build 🔧
         run: npm install && npm run build
-      - name: Publish dev package on NPM 📦
+      - name: Publish dev package on NPM 
         run: npm publish --tag dev || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
