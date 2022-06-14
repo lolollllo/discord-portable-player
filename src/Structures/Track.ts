@@ -1,4 +1,4 @@
-import { User, Util, SnowflakeUtil, Snowflake } from "discord.js";
+import { User, SnowflakeUtil, Snowflake } from "discord.js";
 import { Player } from "../Player";
 import { RawTrackData, TrackJSON } from "../types/types";
 import { Playlist } from "./Playlist";
@@ -109,7 +109,7 @@ class Track {
     }
 
     private _patch(data: RawTrackData) {
-        this.title = Util.escapeMarkdown(data.title ?? "");
+        this.title = escapeMarkdown(data.title ?? "");
         this.author = data.author ?? "";
         this.url = data.url ?? "";
         this.thumbnail = data.thumbnail ?? "";
