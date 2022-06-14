@@ -106,11 +106,11 @@ client.on("interactionCreate", async (interaction) => {
         const track = await player.search(query, {
             requestedBy: interaction.user
         }).then(x => x.tracks[0]);
-        if (!track) return await interaction.followUp({ content: `❌ | Track **${query}** not found!` });
+        if (!track) return await interaction.followUp({ content: `**${query}** not found!` });
 
         queue.play(track);
 
-        return await interaction.followUp({ content: `⏱️ | Loading track **${track.title}**!` });
+        return await interaction.followUp({ content: `Loading track **${track.title}**!` });
     }
 });
 
@@ -124,67 +124,3 @@ By default, discord-portable-player supports:
 - [Spotify](http://spotify.com)
 - [Apple Music](https://www.apple.com/apple-music/)
 - [SoundCloud](https://soundcloud.com/)
-
-## Advanced
-
-### Use cookies
-
-```js
-const { Player } = require("discord-portable-player");
-
-const player = new Player(client, {
-    ytdlOptions: {
-        requestOptions: {
-            headers: {
-                cookie: "YOUR_YOUTUBE_COOKIE"
-            }
-        }
-    }
-});
-```
-
-### Use custom proxies
-
-```js
-const HttpsProxyAgent = require("https-proxy-agent");
-const { Player } = require("discord-portable-player");
-
-// Remove "user:pass@" if you don't want to authenticate to your proxy.
-const proxy = "http://user:pass@111.111.111.111:8080";
-const agent = HttpsProxyAgent(proxy);
-
-const player = new Player(client, {
-    ytdlOptions: {
-        requestOptions: { agent }
-    }
-});
-```
-
-> You may also create a simple proxy server and forward requests through it.
-> See **[https://github.com/http-party/node-http-proxy](https://github.com/http-party/node-http-proxy)** for more info.
-
-### Custom stream Engine
-
-Discord Portable Player by default uses **[node-ytdl-core](https://github.com/fent/node-ytdl-core)** for youtube and some other extractors for other sources.
-If you need to modify this behavior without touching extractors, you need to use `createStream` functionality of discord player.
-Here's an example on how you can use **[play-dl](https://npmjs.com/package/play-dl)** to download youtube streams instead of using ytdl-core.
-
-```js
-const playdl = require("play-dl");
-
-// other code
-const queue = player.createGuildQueue(..., {
-    ...,
-    async onBeforeCreateStream(track, source, _queue) {
-        // only trap youtube source
-        if (source === "youtube") {
-            // track here would be youtube track
-            return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
-            // we must return readable stream or void (returning void means telling discord-player to look for default extractor)
-        }
-    }
-});
-```
-
-`<Queue>.onBeforeCreateStream` is called before actually downloading the stream. It is a different concept from extractors, where you are **just** downloading
-streams. `source` here will be a video source. Streams from `onBeforeCreateStream` are then piped to `FFmpeg` and finally sent to Discord voice servers.
