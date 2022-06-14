@@ -1,4 +1,4 @@
-import { User, SnowflakeUtil, Snowflake } from "discord.js";
+import { User, escapeMarkdown, SnowflakeUtil, Snowflake } from "discord.js";
 import { Player } from "../Player";
 import { RawTrackData, TrackJSON } from "../types/types";
 import { Playlist } from "./Playlist";
