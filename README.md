@@ -1,6 +1,5 @@
 # Discord Portable Player
 Complete framework to facilitate music commands using **[discord.js](https://discord.js.org)**.
-**⚠️ THIS IS A DEV VERSION OF DISCORD PORTABLE PLAYER AND ITS NOT STABLE. INSTALLING THIS VERSION MIGHT BREAK YOUR CURRENT CODE AS THERE ARE A LOT OF BREAKING CHANGES AND BUGS WHICH ARE YET TO BE FIXED! ⚠️ USE AT YOUR OWN RISK! ⚠️** 
 
 [![downloadsBadge](https://img.shields.io/npm/dt/discord-portable-player?style=for-the-badge)](https://npmjs.com/discord-portable-player)
 [![versionBadge](https://img.shields.io/npm/v/discord-portable-player?style=for-the-badge)](https://npmjs.com/discord-portable-player)
@@ -46,8 +45,7 @@ First of all, you will need to register slash commands:
 
 ```js
 const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v10");
-const { ApplicationCommandOptionType } = require("discord.js");
+const { ApplicationCommandOptionType, Routes } = require("discord.js");
 
 const commands = [{
     name: "play",
@@ -84,7 +82,7 @@ Now you can implement your bot's logic:
 
 ```js
 const { Client, GatewayIntentBits } = require("discord.js");
-const client = new Discord.Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates]});
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildVoiceStates]});
 const { Player } = require("discord-portable-player");
 
 // Create a new Player (you don't need any API Key)
@@ -100,19 +98,19 @@ client.once("ready", () => {
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
-    // /play track:Despacito
-    // will play "Despacito" in the voice channel
+    // /play track: Marshmello - Together
+
     if (interaction.commandName === "play") {
         if (!interaction.member.voice.channelId) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
-        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
-        const query = interaction.options.get("query").value;
-        const queue = player.createQueue(interaction.guild, {
+        if (interaction.guild.members.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.members.me.voice.channelId) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
+        const query = interaction.options.getString("query")
+        const queue = player.createGuildQueue(interaction.guild, {
             metadata: {
                 channel: interaction.channel
             }
         });
         
-        // verify vc connection
+        // Verifies the voice channel
         try {
             if (!queue.connection) await queue.connect(interaction.member.voice.channel);
         } catch {
@@ -167,7 +165,7 @@ const player = new Player(client, {
 const HttpsProxyAgent = require("https-proxy-agent");
 const { Player } = require("discord-portable-player");
 
-// Remove "user:pass@" if you don't need to authenticate to your proxy.
+// Remove "user:pass@" if you don't want to authenticate to your proxy.
 const proxy = "http://user:pass@111.111.111.111:8080";
 const agent = HttpsProxyAgent(proxy);
 
@@ -191,7 +189,7 @@ Here's an example on how you can use **[play-dl](https://npmjs.com/package/play-
 const playdl = require("play-dl");
 
 // other code
-const queue = player.createQueue(..., {
+const queue = player.createGuildQueue(..., {
     ...,
     async onBeforeCreateStream(track, source, _queue) {
         // only trap youtube source
