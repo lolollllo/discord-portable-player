@@ -1,5 +1,5 @@
 # Discord Portable Player
-Complete framework to facilitate music commands using **[discord.js](https://discord.js.org)**.
+Complete framework to facilitate music commands using [discord.js](https://discord.js.org).
 
 [![downloadsBadge](https://img.shields.io/npm/dt/discord-portable-player?style=for-the-badge)](https://npmjs.com/discord-portable-player)
 [![versionBadge](https://img.shields.io/npm/v/discord-portable-player?style=for-the-badge)](https://npmjs.com/discord-portable-player)
@@ -7,35 +7,25 @@ Complete framework to facilitate music commands using **[discord.js](https://dis
 
 ## Installation
 
-### Install **[discord-portable-player](https://npmjs.com/package/discord-portable-player)**
+### Install [discord-portable-player](https://npmjs.com/package/discord-portable-player)
 
 ```sh
 $ npm install --save discord-portable-player
 ```
 
-### Install **[@discordjs/opus](https://npmjs.com/package/@discordjs/opus)**
+### Install [@discordjs/opus](https://npmjs.com/package/@discordjs/opus)
 
 ```sh
 $ npm install --save @discordjs/opus
 ```
 
 ### Install FFmpeg or Avconv
-- Official FFMPEG Website: **[https://www.ffmpeg.org/download.html](https://www.ffmpeg.org/download.html)**
-
-- Node Module (FFMPEG): **[https://npmjs.com/package/ffmpeg-static](https://npmjs.com/package/ffmpeg-static)**
-
-- Avconv: **[https://libav.org/download](https://libav.org/download)**
+- FFMPEG Website: [https://www.ffmpeg.org/download.html](https://www.ffmpeg.org/download.html)
+- FFMPEG: [https://npmjs.com/package/ffmpeg-static](https://npmjs.com/package/ffmpeg-static)
+- Avconv: [https://libav.org/download](https://libav.org/download)
 
 # Features
-- Simple & easy to use 
-- Beginner friendly
-- Audio filters 
-- Lightweight 
-- Custom extractors support 
-- Multiple sources support 
-- Play in multiple servers at the same time 
-- Does not inject anything to discord.js or your discord.js client 
-- Allows you to have full control over what is going to be streamed 
+A simple & easy to use, beginner friendly package with amazing features such as Audio filters, Custom extractor support & many more!
 
 **[Documentation](https://discord-portable-player.js.org)**
 
@@ -133,13 +123,13 @@ client.on("interactionCreate", async (interaction) => {
 client.login(process.env.DISCORD_TOKEN);
 ```
 
-## Supported websites
+## Supported Sources
 
-By default, discord-portable-player supports **YouTube**, **Spotify**, **Apple Music** & **SoundCloud** streams only.
-
-### Optional dependencies
-
-Discord Portable Player will be providing additional packages soon!
+By default, discord-portable-player supports:
+- [YouTube](https://www.youtube.com/)
+- [Spotify](http://spotify.com)
+- [Apple Music](https://www.apple.com/apple-music/)
+- [SoundCloud](https://soundcloud.com/)
 
 ## Advanced
 
