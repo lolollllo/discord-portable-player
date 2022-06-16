@@ -11,7 +11,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          ref: develop
+          ref: main
 
       - name: Install Node v16
         uses: actions/setup-node@v2
