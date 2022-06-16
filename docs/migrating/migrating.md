@@ -4,7 +4,7 @@ v2 requires Node 16.9 or higher to use as it uses **discord.js v14**, so make su
 
 Please note that, Discord Portable Player v2 brings breaking changes, so your old code might not work with version 2.
 
-### Install discord-portable-player (VERSION 2!) 🎊
+### Install discord-portable-player 🎊 (Version 2.x) 🎊
 
 #### NPM (Node Package Manager)
 
@@ -25,12 +25,12 @@ yarn add discord-portable-player
 ### Common Breakages
 
 #### Queue
-- Methods to creating queues, getting queues & deleting queues have been renamed! These changes were brought to make it less confusing by adding the word `guild` to the methods!
+- Methods to creating queues, getting queues & deleting queues have been renamed! Creating queues now take an object, Creating, finding & deleting queue functions now have the `Guild` suffix in them to avoid confusion for multi-server support!
 
 ```diff
 //creating queues
 - <player>.createQueue(interaction.guildId)
-+ <player>.createGuildQueue(interaction.guildId)
++ <player>.createGuildQueue({ guild: interaction.guildId })
 
 //finding queues
 - <player>.getQueue(interaction.guildId)
@@ -42,10 +42,9 @@ yarn add discord-portable-player
 ```
 
 #### Query Types
-- Previously the QueryTypes were in SCREAMING_SNAKE_CASE this was kind of useless and they have been changed to CamelCase.
+- Previously the QueryTypes were in SCREAMING_SNAKE_CASE this was not necessary, due of this, they have been changed to CamelCase.
 
 ```diff
-//YouTube Video
 - QueryType.YOUTUBE_VIDEO
 + QueryType.YouTubeVideo
 ```
