@@ -20,7 +20,7 @@ export interface QueueFilters {
     bassboost_low?: boolean;
     bassboost?: boolean;
     bassboost_high?: boolean;
-    "8D"?: boolean;
+    eight_d?: boolean;
     vaporwave?: boolean;
     nightcore?: boolean;
     phaser?: boolean;
