@@ -1,4 +1,4 @@
-import { Client, Collection, GuildResolvable, Snowflake, User, VoiceState, GatewayIntentBits, IntentsBitField } from "discord.js";
+import { Client, Collection, GuildResolvable, Snowflake, User, VoiceState, IntentsBitField } from "discord.js";
 import { TypedEmitter as EventEmitter } from "tiny-typed-emitter";
 import { Queue } from "./Structures/Queue";
 import { VoiceUtils } from "./VoiceInterface/VoiceUtils";
@@ -47,7 +47,7 @@ class Player extends EventEmitter<PlayerEvents> {
          */
         this.client = client;
 
-        if (this.client?.options?.intents && !new IntentsBitField(this.client?.options?.intents).has(GatewayIntentBits.GuildVoiceStates)) {
+        if (this.client?.options?.intents && !new IntentsBitField(this.client?.options?.intents).has(IntentsBitField.Flags.GuildVoiceStates)) {
             throw new PlayerError('The client is missing "GuildVoiceStates" intent!');
         }
 
@@ -207,7 +207,7 @@ class Player extends EventEmitter<PlayerEvents> {
      */
     async search(query: string | Track, options: SearchOptions): Promise<PlayerSearchResult> {
         if (query instanceof Track) return { playlist: query.playlist || null, tracks: [query] };
-        if (!options) throw new PlayerError("DiscordPlayer#search needs search options!", ErrorStatusCode.INVALID_ARG_TYPE);
+        if (!options) throw new PlayerError("No search options were provided!", ErrorStatusCode.INVALID_ARG_TYPE);
         options.requestedBy = this.client.users.resolve(options.requestedBy);
         if (!("searchEngine" in options)) options.searchEngine = QueryType.Auto;
         if (typeof options.searchEngine === "string" && this.extractors.has(options.searchEngine)) {
@@ -633,7 +633,7 @@ class Player extends EventEmitter<PlayerEvents> {
         if (this.requiredEvents.includes(eventName) && !super.eventNames().includes(eventName)) {
             // eslint-disable-next-line no-console
             console.error(...args);
-            process.emitWarning(`[DiscordPlayerWarning] Unhandled "${eventName}" event! Events ${this.requiredEvents.map((m) => `"${m}"`).join(", ")} must have event listeners!`);
+            process.emitWarning(`Warning: Unhandled "${eventName}" event! Events ${this.requiredEvents.map((m) => `"${m}"`).join(", ")} must have event listeners!`);
             return false;
         } else {
             return super.emit(eventName, ...args);
