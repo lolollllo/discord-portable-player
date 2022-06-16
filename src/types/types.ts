@@ -1,4 +1,4 @@
-import { Snowflake, User, UserResolvable } from "discord.js";
+import { Snowflake, User, UserResolvable, GuildResolvable } from "discord.js";
 import { Readable, Duplex } from "stream";
 import { Queue } from "../Structures/Queue";
 import Track from "../Structures/Track";
@@ -156,6 +156,25 @@ export interface PlayerOptions {
     volumeSmoothness?: number;
     onBeforeCreateStream?: (track: Track, source: TrackSource, queue: Queue) => Promise<Readable>;
 }
+
+
+/**
+ * @typedef {object} QueueOptions
+ * @property {boolean} [leaveOnEnd=true] If it should leave on end
+ * @property {boolean} [leaveOnStop=true] If it should leave on stop
+ * @property {boolean} [leaveOnEmpty=true] If it should leave on empty
+ * @property {number} [leaveOnEmptyCooldown=1000] The cooldown in ms
+ * @property {GuildResolvable} guild The guild
+ */
+export interface QueueOptions {
+    leaveOnEnd?: boolean;
+    leaveOnStop?: boolean;
+    leaveOnEmpty?: boolean;
+    leaveOnEmptyCooldown?: number;
+    guild: GuildResolvable
+}
+
+
 
 /**
  * @typedef {object} ExtractorModelData
