@@ -21,7 +21,7 @@ $ npm install --save @discordjs/opus
 
 ### Install FFmpeg or Avconv
 - FFMPEG Website: [https://www.ffmpeg.org/download.html](https://www.ffmpeg.org/download.html)
-- FFMPEG: [https://npmjs.com/package/ffmpeg-static](https://npmjs.com/package/ffmpeg-static)
+- FFMPEG: [https://npmjs.com/package/ffmpeg](https://npmjs.com/package/ffmpeg)
 - Avconv: [https://libav.org/download](https://libav.org/download)
 
 # Features
