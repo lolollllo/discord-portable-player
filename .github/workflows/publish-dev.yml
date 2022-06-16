@@ -1,65 +1,23 @@
-name: Publish dev
+name: NPM Publish (dev)
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 */12 * * *'
-jobs:
-  npm:
-    name: npm
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - package: 'discord-portable-player'
-            folder: 'player'
-          - package: 'discord-portable-player/extractor'
-            folder: 'extractor'
-    runs-on: ubuntu-latest
-    if: github.repository_owner == 'lolollllo'
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
-      - name: Install node.js v16
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-          cache: 'yarn'
-          cache-dependency-path: yarn.lock
-
-      - name: Turbo cache
-        id: turbo-cache
-        uses: actions/cache@v2
-        with:
-          path: .turbo
-          key: turbo-${{ github.job }}-${{ github.ref_name }}-${{ github.sha }}
-          restore-keys: |
-            turbo-${{ github.job }}-${{ github.ref_name }}-
-      - name: Check previous released version
-        id: pre-release
-        run: |
-          if [[ $(npm view ${{ matrix.package }}@dev version | grep -e "$(jq --raw-output '.version' packages/${{ matrix.folder }}/package.json)\..*-$(git rev-parse --short HEAD)") ]]; \
-          then echo '::set-output name=release::false'; \
-          else echo '::set-output name=release::true'; fi
-      - name: Install dependencies
-        if: steps.pre-release.outputs.release == 'true'
-        run: yarn --immutable
-
-      - name: Build dependencies
-        if: steps.pre-release.outputs.release == 'true'
-        run: yarn build --cache-dir=".turbo"
-
-      - name: Deprecate old versions
-        if: steps.pre-release.outputs.release == 'true'
-        run: npm deprecate ${{ matrix.package }}@"~$(jq --raw-output '.version' packages/${{ matrix.folder }}/package.json)" "no longer supported" || true
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies and build 🔧
+        run: npm install && npm run build
+      - name: Publish dev package on NPM 
+        run: npm publish --tag dev || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish
-        if: steps.pre-release.outputs.release == 'true'
-        run: |
-          yarn workspace ${{ matrix.package }} version $(jq --raw-output '.version' packages/${{ matrix.folder }}/package.json).$(date +%s)-$(git rev-parse --short HEAD)
-          yarn workspace ${{ matrix.package }} npm publish --tag dev || true
-        env:
-          YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
