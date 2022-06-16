@@ -8,6 +8,12 @@ jobs:
     name: npm
     strategy:
       fail-fast: false
+      matrix:
+        include:
+          - package: 'discord-portable-player'
+            folder: 'player'
+          - package: 'discord-portable-player/extractor'
+            folder: 'extractor'
     runs-on: ubuntu-latest
     if: github.repository_owner == 'lolollllo'
     steps:
@@ -33,7 +39,7 @@ jobs:
       - name: Check previous released version
         id: pre-release
         run: |
-          if [[ $(npm view ${discord-portable-player}@dev version | grep -e "$(jq --raw-output '.version' package.json)\..*-$(git rev-parse --short HEAD)") ]]; \
+          if [[ $(npm view ${{ matrix.package }}@dev version | grep -e "$(jq --raw-output '.version' packages/${{ matrix.folder }}/package.json)\..*-$(git rev-parse --short HEAD)") ]]; \
           then echo '::set-output name=release::false'; \
           else echo '::set-output name=release::true'; fi
       - name: Install dependencies
@@ -46,14 +52,14 @@ jobs:
 
       - name: Deprecate old versions
         if: steps.pre-release.outputs.release == 'true'
-        run: npm deprecate discord-portable-player@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
+        run: npm deprecate ${{ matrix.package }}@"~$(jq --raw-output '.version' packages/${{ matrix.folder }}/package.json)" "no longer supported" || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish
         if: steps.pre-release.outputs.release == 'true'
         run: |
-          yarn workspace ${discord-portable-player} version $(jq --raw-output '.version' package.json).$(date +%s)-$(git rev-parse --short HEAD)
-          yarn workspace ${discord-portable-player} npm publish --tag dev || true
+          yarn workspace ${{ matrix.package }} version $(jq --raw-output '.version' packages/${{ matrix.folder }}/package.json).$(date +%s)-$(git rev-parse --short HEAD)
+          yarn workspace ${{ matrix.package }} npm publish --tag dev || true
         env:
           YARN_NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
