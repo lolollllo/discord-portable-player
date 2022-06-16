@@ -205,14 +205,15 @@ class Player extends EventEmitter<PlayerEvents> {
      * @param {SearchOptions} options The search options
      * @returns {Promise<PlayerSearchResult>}
      */
-    async search(query: string | Track, options: SearchOptions): Promise<PlayerSearchResult> {
-        if (query instanceof Track) return { playlist: query.playlist || null, tracks: [query] };
+    async search(Track, options: SearchOptions & { query: string }): Promise<PlayerSearchResult> {
+        let query = options.query;
+        if (options.query instanceof Track) return { playlist: query.playlist || null, tracks: [query] };
         if (!options) throw new PlayerError("No search options were provided!", ErrorStatusCode.INVALID_ARG_TYPE);
         options.requestedBy = this.client.users.resolve(options.requestedBy);
         if (!("searchEngine" in options)) options.searchEngine = QueryType.Auto;
         if (typeof options.searchEngine === "string" && this.extractors.has(options.searchEngine)) {
             const extractor = this.extractors.get(options.searchEngine);
-            if (!extractor.validate(query)) return { playlist: null, tracks: [] };
+            if (!extractor.validate(options.query)) return { playlist: null, tracks: [] };
             const data = await extractor.handle(query);
             if (data && data.data.length) {
                 const playlist = !data.playlist
