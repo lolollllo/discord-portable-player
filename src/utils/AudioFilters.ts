@@ -8,7 +8,7 @@ const bass = (g: number) => `bass=g=${g}:f=110:w=0.3`;
  * @property {string} bassboost_low The bassboost filter (+15dB)
  * @property {string} bassboost The bassboost filter (+20dB)
  * @property {string} bassboost_high The bassboost filter (+30dB)
- * @property {string} 8D The 8D filter
+ * @property {string} eight_d The 8D filter
  * @property {string} vaporwave The vaporwave filter
  * @property {string} nightcore The nightcore filter
  * @property {string} phaser The phaser filter
@@ -44,7 +44,7 @@ const FilterList = {
     bassboost_low: bass(15),
     bassboost: bass(20),
     bassboost_high: bass(30),
-    "8D": "apulsator=hz=0.09",
+    eight_d: "apulsator=hz=0.09",
     vaporwave: "aresample=48000,asetrate=48000*0.8",
     nightcore: "aresample=48000,asetrate=48000*1.25",
     phaser: "aphaser=in_gain=0.4",
