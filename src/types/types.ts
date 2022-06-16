@@ -171,7 +171,7 @@ export interface QueueOptions {
     leaveOnStop?: boolean;
     leaveOnEmpty?: boolean;
     leaveOnEmptyCooldown?: number;
-    guild: GuildResolvable
+    guild?: GuildResolvable
 }
 
 
