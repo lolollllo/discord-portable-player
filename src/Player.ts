@@ -2,7 +2,7 @@ import { Client, Collection, GuildResolvable, Snowflake, User, VoiceState, Inten
 import { TypedEmitter as EventEmitter } from "tiny-typed-emitter";
 import { Queue } from "./Structures/Queue";
 import { VoiceUtils } from "./VoiceInterface/VoiceUtils";
-import { PlayerEvents, PlayerOptions, QueryType, SearchOptions, PlayerInitOptions, PlayerSearchResult } from "./types/types";
+import { PlayerEvents, PlayerOptions, QueueOptions, QueryType, SearchOptions, PlayerInitOptions, PlayerSearchResult } from "./types/types";
 import Track from "./Structures/Track";
 import { QueryResolver } from "./utils/QueryResolver";
 import YouTube, { Video } from "youtube-sr";
