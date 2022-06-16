@@ -149,18 +149,18 @@ class Player extends EventEmitter<PlayerEvents> {
      / @param {PlayerOptions} playerInitOptions Player init options
      * @returns {Queue}
      */
-    createGuildQueue<T = unknown>(playerInitOptions: PlayerOptions, queueInitOptions: QueueOptions & { metadata?: T } = {}): Queue<T> {
-        queueInitOptions.guild = this.client.guilds.resolve(queueInitOptions.guild);
-        if (!server) throw new PlayerError("Unknown Guild", ErrorStatusCode.UNKNOWN_GUILD);
-        if (this.queues.has(queueInitOptions.guild.id)) return this.queues.get(queueInitOptions.guild.id) as Queue<T>;
+    createGuildQueue<T = unknown>(playerInitOptions: PlayerOptions & { guild: GuildResolvable }, queueInitOptions: QueueOptions & { metadata?: T } = {}): Queue<T> {
+        playerInitOptions.guild = this.client.guilds.resolve(playerInitOptions.guild);
+        if (!playerInitOptions.guild) throw new PlayerError("Unknown Guild", ErrorStatusCode.UNKNOWN_GUILD);
+        if (this.queues.has(playerInitOptions.guild.id)) return this.queues.get(playerInitOptions.guild.id) as Queue<T>;
 
         const _meta = queueInitOptions.metadata;
         delete queueInitOptions["metadata"];
         playerInitOptions.volumeSmoothness ??= 0.08;
         playerInitOptions.ytdlOptions ??= this.options.ytdlOptions;
-        const queue = new Queue(this, queueInitOptions.guild, queueInitOptions);
+        const queue = new Queue(this, playerInitOptions.guild, queueInitOptions);
         queue.metadata = _meta;
-        this.queues.set(queueInitOptions.guild.id, queue);
+        this.queues.set(playerInitOptions.guild.id, queue);
 
         return queue as Queue<T>;
     }
