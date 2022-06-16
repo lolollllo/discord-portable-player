@@ -88,10 +88,9 @@ client.on("interactionCreate", async (interaction) => {
         if (!interaction.member.voice.channel) return await interaction.reply({ content: "You are not in a voice channel!", ephemeral: true });
         if (interaction.guild.members.me.voice.channel && interaction.member.voice.channel !== interaction.guild.members.me.voice.channel) return await interaction.reply({ content: "You are not in my voice channel!", ephemeral: true });
         const query = interaction.options.getString("query")
-        const queue = player.createGuildQueue(interaction.guild, {
-            metadata: {
-                channel: interaction.channel
-            }
+        const queue = player.createGuildQueue({
+            metadata: interaction.channel,
+	    guild: interaction.guild
         });
         
         // Verifies the voice channel
