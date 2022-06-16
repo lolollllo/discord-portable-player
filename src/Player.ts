@@ -145,13 +145,12 @@ class Player extends EventEmitter<PlayerEvents> {
 
     /**
      * Creates a queue for a guild if not available, else returns existing queue
-     * @param {GuildResolvable} guild The guild
      * @param {QueueOptions} queueInitOptions Queue init options
      / @param {PlayerOptions} playerInitOptions Player init options
      * @returns {Queue}
      */
-    createGuildQueue<T = unknown>(playerInitOptions: PlayerOptions, queueInitOptions: QueueOptions & { metadata?: T } = {}): Queue<T> {
-        const server = this.client.guilds.resolve(queueInitOptions.guild);
+    createGuildQueue<T = unknown>(playerInitOptions: PlayerOptions, queueInitOptions: QueueOptions & { metadata?: T, server?: GuildResolvable } = {}): Queue<T> {
+        server = this.client.guilds.resolve(guild);
         if (!server) throw new PlayerError("Unknown Guild", ErrorStatusCode.UNKNOWN_GUILD);
         if (this.queues.has(server.id)) return this.queues.get(server.id) as Queue<T>;
 
