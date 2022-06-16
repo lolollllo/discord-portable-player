@@ -164,14 +164,14 @@ export interface PlayerOptions {
  * @property {boolean} [leaveOnStop=true] If it should leave on stop
  * @property {boolean} [leaveOnEmpty=true] If it should leave on empty
  * @property {number} [leaveOnEmptyCooldown=1000] The cooldown in ms
- * @property {GuildResolvable} guild The guild
+ * @property {string} guild The id of the guild
  */
 export interface QueueOptions {
     leaveOnEnd?: boolean;
     leaveOnStop?: boolean;
     leaveOnEmpty?: boolean;
     leaveOnEmptyCooldown?: number;
-    guild?: GuildResolvable
+    guild?: string;
 }
 
 
