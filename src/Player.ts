@@ -206,6 +206,7 @@ class Player extends EventEmitter<PlayerEvents> {
      * @returns {Promise<PlayerSearchResult>}
      */
     async search(Track, options: SearchOptions & { query: string | Track }): Promise<PlayerSearchResult> {
+        options.query = options.query;
         if (options.query instanceof Track) return { playlist: options.query.playlist || null, tracks: [options.query] };
         if (!options) throw new PlayerError("No search options were provided!", ErrorStatusCode.INVALID_ARG_TYPE);
         options.requestedBy = this.client.users.resolve(options.requestedBy);
