@@ -15,6 +15,6 @@ jobs:
       - uses: igorjs/gh-actions-clean-workflow@v1
         with:
           token: ${{ secrets.gity_token }}
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.event.repository.name }}
+          owner: lolollllo
+          repo: discord-portable-player
           days_old: ${{ github.event.inputs.days_old }}
