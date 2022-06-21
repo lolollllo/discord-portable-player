@@ -4,15 +4,15 @@ This is a checkpoint where discord-player calls `createStream` before downloadin
 
 ### Custom stream Engine
 
-Discord Player by default uses **[node-ytdl-core](https://github.com/fent/node-ytdl-core)** for youtube and some other extractors for other sources.
+Discord Player by default uses [node-ytdl-core](https://github.com/fent/node-ytdl-core) for youtube and some other extractors for other sources.
 If you need to modify this behavior without touching extractors, you need to use `createStream` functionality of discord player.
-Here's an example on how you can use **[play-dl](https://npmjs.com/package/play-dl)** to download youtube streams instead of using ytdl-core.
+Here's an example on how you can use [play-dl](https://npmjs.com/package/play-dl) to download youtube streams instead of using ytdl-core.
 
 ```js
 const playdl = require("play-dl");
 
 // other code
-const queue = player.createQueue(..., {
+const queue = player.createGuildQueue({
     ...,
     async onBeforeCreateStream(track, source, _queue) {
         // only trap youtube source
@@ -32,7 +32,7 @@ streams. `source` here will be a video source. Streams from `onBeforeCreateStrea
 ## How can I remove this?
 
 > If you already made this change and want to switch to default mode in runtime,
-> you can set `queue.onBeforeCreateStream` to `null` which will make `discord-player` use default config.
+> you can set `queue.onBeforeCreateStream` to `null` which will make `discord-portable-player` use default config.
 
 ## Which stream format should I return?
 
