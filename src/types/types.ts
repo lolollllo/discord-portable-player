@@ -1,4 +1,4 @@
-import { Snowflake, User, UserResolvable, GuildResolvable } from "discord.js";
+import { Snowflake, User, UserResolvable } from "discord.js";
 import { Readable, Duplex } from "stream";
 import { Queue } from "../Structures/Queue";
 import Track from "../Structures/Track";
@@ -295,7 +295,7 @@ export enum QueryType {
  * Emitted when bot connects to a voice channel
  * @event Player#connectionCreate
  * @param {Queue} queue The queue
- * @param {StreamDispatcher} connection The discord player connection object
+ * @param {StreamDispatcher} connection The discord portable player connection object
  */
 
 /**
