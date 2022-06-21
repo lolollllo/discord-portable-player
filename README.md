@@ -72,9 +72,6 @@ const { Player } = require("discord-portable-player");
 // Create a new Player (you don't need any API Key)
 const player = new Player(client);
 
-// add the trackStart event so when a song will be played this message will be sent
-player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`))
-
 client.once("ready", () => {
     console.log("I'm ready !");
 });
@@ -112,6 +109,9 @@ client.on("interactionCreate", async (interaction) => {
         return await interaction.followUp({ content: `Loading track **${track.title}**!` });
     }
 });
+
+// add the trackStart event so when a song will be played this message will be sent
+player.on("trackStart", (queue, track) => queue.metadata.send(`🎶 | Now playing **${track.title}**!`))
 
 client.login(token);
 ```
