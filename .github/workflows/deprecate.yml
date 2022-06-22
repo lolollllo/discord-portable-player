@@ -13,6 +13,6 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - name: Deprecate 
-        run: npm deprecate discord-portable-player@2.0.1-dev.1655917631.61474e6 "No longer supported. Install the latest dev release!"
+        run: npm deprecate discord-portable-player@2.0.1-dev.1655918484.2cdf4ce "No longer supported. Install the latest dev release!"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
