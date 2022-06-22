@@ -1,4 +1,4 @@
-name: NPM Deprecate
+name: NPM DELETE
 on: workflow_dispatch
 
 jobs:
