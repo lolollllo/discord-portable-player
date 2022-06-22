@@ -369,6 +369,20 @@ export interface PlayerEvents {
     trackEnd: (queue: Queue, track: Track) => any;
 }
 
+export declare const Events: {
+    BotDisconnect: 'botDisconnect';
+    ChannelEmpty: 'channelEmpty';
+    ConnectionCreate: 'connectionCreate';
+    Debug: 'debug';
+    Error: 'error';
+    ConnectionError: 'connectionError';
+    QueueEnd: 'queueEnd';
+    TrackAdd: 'trackAdd';
+    TracksAdd: 'tracksAdd';
+    TrackStart: 'trackStart';
+    TrackEnd: 'trackEnd';
+}
+
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 /**
