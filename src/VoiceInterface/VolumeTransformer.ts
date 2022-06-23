@@ -1,4 +1,5 @@
 // prism's volume transformer with smooth volume support
+import { Buffer } from 'node:buffer';
 
 import { Transform, TransformOptions } from "stream";
 
