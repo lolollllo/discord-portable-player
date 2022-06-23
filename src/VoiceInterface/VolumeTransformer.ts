@@ -1,6 +1,7 @@
 // prism's volume transformer with smooth volume support
 
 import { Transform, TransformOptions } from "stream";
+import { Buffer } from "node:buffer";
 
 export interface VolumeTransformerOptions extends TransformOptions {
     type?: "s16le" | "s16be" | "s32le" | "s32be";
