@@ -19,13 +19,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        
-      - name: Build
-        run: npm run build
 
       - name: Publish
         run: |
-         npx tsc --skipLibCheck
-         npm publish
+          npx tsc --skipLibCheck
+          npm version --git-tag-version=false $(jq --raw-output '.version' package.json)
+          npm publish || true 
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
