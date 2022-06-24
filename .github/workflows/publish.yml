@@ -1,20 +1,28 @@
-name: NPM Publish
-on: workflow_dispatch
+name: Publish dev
 
+on:
+  workflow_dispatch:
 jobs:
-  build:
+  npm:
+    name: npm
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Setup Node
+        with:
+          ref: main
+
+      - name: Install Node v18
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
-          registry-url: 'https://registry.npmjs.org'
-          
-      - name: Install dependencies and build 🔧
-        run: npm install && npm run build
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Build
+        run: npm run build
 
       - name: Publish
         run: npm publish
