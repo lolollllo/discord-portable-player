@@ -1,4 +1,4 @@
-name: Publish dev
+name: Publish 
 on:
   workflow_dispatch:
 jobs:
@@ -9,7 +9,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          ref: main
+          ref: stable
 
       - name: Install Node v18
         uses: actions/setup-node@v3
@@ -24,9 +24,6 @@ jobs:
         run: npm run build
 
       - name: Publish
-        run: |
-          npx tsc --skipLibCheck
-          npm version --git-tag-version=false $(jq --raw-output '.version' package.json)-dev.$(date +%s).$(git rev-parse --short HEAD)
-          npm publish --tag dev || true
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
