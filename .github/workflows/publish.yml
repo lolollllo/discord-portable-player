@@ -23,7 +23,7 @@ jobs:
       - name: Publish
         run: |
           npx tsc --skipLibCheck
-          npm version --git-tag-version=false $(jq --raw-output '.version' package.json)
+          npm version --git-tag-version=false 2.0.2
           npm publish || true 
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
