@@ -1,8 +1,8 @@
 version: 2
 updates:
-    - package-ecosystem: yarn
+    - package-ecosystem: npm
       directory: "/"
       schedule:
           interval: daily
-          time: "20:43"
+          time: "20:45"
           timezone: Indian/Maldives	
