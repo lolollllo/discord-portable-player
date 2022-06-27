@@ -5,5 +5,5 @@ updates:
       versioning-strategy: increase
       schedule:
           interval: daily
-          time: "21:05"
+          time: "11:00"
           timezone: Indian/Maldives	
