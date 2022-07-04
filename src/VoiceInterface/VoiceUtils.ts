@@ -1,4 +1,4 @@
-import { VoiceChannel, StageChannel, Collection, Snowflake, VoiceStates } from "discord.js";
+import { VoiceChannel, StageChannel, Collection, Snowflake, VoiceState } from "discord.js";
 import { DiscordGatewayAdapterCreator, entersState, joinVoiceChannel, VoiceConnection, VoiceConnectionStatus } from "@discordjs/voice";
 import { StreamDispatcher } from "./StreamDispatcher";
 
@@ -21,6 +21,8 @@ class VoiceUtils {
      * Joins a voice channel, creating basic stream dispatch manager
      * @param {StageChannel|VoiceChannel} channel The voice channel
      * @param {object} [options={}] Join options
+     * @param {VoiceState} oldState The old voice state
+     * @param {VoiceState} newState The old voice state
      * @returns {Promise<StreamDispatcher>}
      */
     public async connect(
