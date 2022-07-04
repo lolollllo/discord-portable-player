@@ -54,7 +54,15 @@ class VoiceUtils {
             channelId: channel.id,
             adapterCreator: channel.guild.voiceAdapterCreator as unknown as DiscordGatewayAdapterCreator,
             selfDeaf: Boolean(options.deaf)
-        });
+        }); 
+
+        const queue = {...}
+
+        conn.on(VoiceConnectionStatus.Disconnected, () => {
+             conn.destroy()
+             queue.destroy()
+        })
+
 
         return conn;
     }
