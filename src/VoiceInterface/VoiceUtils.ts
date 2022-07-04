@@ -1,4 +1,4 @@
-import { VoiceChannel, StageChannel, Collection, Snowflake } from "discord.js";
+import { VoiceChannel, StageChannel, Collection, Snowflake, VoiceStates } from "discord.js";
 import { DiscordGatewayAdapterCreator, entersState, joinVoiceChannel, VoiceConnection, VoiceConnectionStatus } from "@discordjs/voice";
 import { StreamDispatcher } from "./StreamDispatcher";
 
