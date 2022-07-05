@@ -58,7 +58,7 @@ class VoiceUtils {
             selfDeaf: Boolean(options.deaf)
         }); 
 
-        const queue = {...}
+        const queue = this.getQueue(oldState.guild.id)
 
         conn.on(VoiceConnectionStatus.Disconnected, () => {
              conn.destroy()
