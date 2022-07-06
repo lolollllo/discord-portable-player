@@ -1,6 +1,6 @@
 {
   "name": "discord-portable-player",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Easy to use, framework to facilitate music commands using discord.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -86,7 +86,7 @@
     "@discord-player/extractor": "^3.0.2",
     "@discordjs/opus": "github:discordjs/opus",
     "@favware/rollup-type-bundler": "^1.0.9",
-    "@types/node": "^18.0.0",
+    "@types/node": "^18.0.3",
     "@types/ws": "^8.5.3",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
