@@ -2,8 +2,7 @@ version: 2
 updates:
     - package-ecosystem: npm
       directory: "/"
-      versioning-strategy: increase
       schedule:
           interval: daily
-          time: "11:12"
+          time: "11:15"
           timezone: Indian/Maldives	
