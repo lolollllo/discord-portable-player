@@ -1,4 +1,5 @@
 name: Publish 
+
 on:
   workflow_dispatch:
 jobs:
@@ -19,8 +20,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        
+      - name: Build
+        run: npm run build
 
       - name: Publish
-        run: npm publish
+        run: npm publish --tag latest
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
