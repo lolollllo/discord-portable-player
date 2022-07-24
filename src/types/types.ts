@@ -525,3 +525,6 @@ export interface PlayerInitOptions {
     ytdlOptions?: downloadOptions;
     connectionTimeout?: number;
 }
+
+export * from 'discord.js';
+export * from '@discordjs/voice';
