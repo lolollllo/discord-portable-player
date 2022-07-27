@@ -101,10 +101,8 @@ class Player extends EventEmitter<PlayerEvents> {
 
         if (oldState.channelId === newState.channelId && newState.member.id === newState.guild.me.id) {
             if (!oldState.serverMute && newState.serverMute) {
-                // state.serverMute can be null
                 queue.setPaused(!!newState.serverMute);
             } else if (!oldState.suppress && newState.suppress) {
-                // state.suppress can be null
                 queue.setPaused(!!newState.suppress);
                 if (newState.suppress) {
                     newState.guild.me.voice.setRequestToSpeak(true).catch(Util.noop);
