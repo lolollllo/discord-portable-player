@@ -71,6 +71,15 @@ class Util {
     static isVoiceEmpty(channel: VoiceChannel | StageChannel) {
         return channel.members.filter((member) => !member.user.bot).size === 0;
     }
+    
+    /**
+     * Checks if everyone in the voice channel is deafened
+     * @param {VoiceChannel|StageChannel} channel The voice channel
+     * @returns {boolean}
+     */
+    static isEveryoneDeafened(channel: VoiceChannel | StageChannel) {
+        return channel.members.filter((member) => member.voice.deaf === true).size === channel.members.size;
+    }
 
     /**
      * Safer require
