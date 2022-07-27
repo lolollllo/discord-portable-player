@@ -4,7 +4,7 @@ Complete framework to facilitate music commands using [discord.js](https://disco
 
 [![downloadsBadge](https://img.shields.io/npm/dt/discord-portable-player?style=for-the-badge)](https://npmjs.com/discord-portable-player)
 [![versionBadge](https://img.shields.io/npm/v/discord-portable-player?style=for-the-badge)](https://npmjs.com/discord-portable-player)
-[![CodeFactor](https://www.codefactor.io/repository/github/lolollllo/discord-portable-player/badge/)](https://www.codefactor.io/repository/github/lolollllo/discord-portable-player/overview/)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 ## Installation
 
