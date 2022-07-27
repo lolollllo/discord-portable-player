@@ -10,7 +10,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          ref: stable
+          ref: main
 
       - name: Install Node v18
         uses: actions/setup-node@v3
