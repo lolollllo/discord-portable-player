@@ -2,6 +2,7 @@
 import "./smoothVolume";
 
 export { AudioFilters } from "./utils/AudioFilters";
+export { Events } from "./types/types";
 export { ExtractorModel } from "./Structures/ExtractorModel";
 export { Playlist } from "./Structures/Playlist";
 export { Player } from "./Player";

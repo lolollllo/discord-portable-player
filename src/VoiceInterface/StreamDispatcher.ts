@@ -17,6 +17,7 @@ import { TypedEmitter as EventEmitter } from "tiny-typed-emitter";
 import Track from "../Structures/Track";
 import { Util } from "../utils/Util";
 import { PlayerError, ErrorStatusCode } from "../Structures/PlayerError";
+import { Events } from "../types/types";
 
 export interface VoiceEvents {
     /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -77,7 +78,7 @@ class StreamDispatcher extends EventEmitter<VoiceEvents> {
                         try {
                             this.voiceConnection.destroy();
                         } catch (err) {
-                            this.emit("error", err as AudioPlayerError);
+                            this.emit(Events.Error, err as AudioPlayerError);
                         }
                     }
                 } else if (this.voiceConnection.rejoinAttempts < 5) {
@@ -87,7 +88,7 @@ class StreamDispatcher extends EventEmitter<VoiceEvents> {
                     try {
                         this.voiceConnection.destroy();
                     } catch (err) {
-                        this.emit("error", err as AudioPlayerError);
+                        this.emit(Events.Error, err as AudioPlayerError);
                     }
                 }
             } else if (newState.status === VoiceConnectionStatus.Destroyed) {
@@ -101,7 +102,7 @@ class StreamDispatcher extends EventEmitter<VoiceEvents> {
                         try {
                             this.voiceConnection.destroy();
                         } catch (err) {
-                            this.emit("error", err as AudioPlayerError);
+                            this.emit(Events.Error, err as AudioPlayerError);
                         }
                     }
                 } finally {
@@ -121,8 +122,8 @@ class StreamDispatcher extends EventEmitter<VoiceEvents> {
             }
         });
 
-        this.audioPlayer.on("debug", (m) => void this.emit("debug", m));
-        this.audioPlayer.on("error", (error) => void this.emit("error", error));
+        this.audioPlayer.on("debug", (m) => void this.emit(Events.Debug, m));
+        this.audioPlayer.on("error", (error) => void this.emit(Events.Error, error));
         this.voiceConnection.subscribe(this.audioPlayer);
     }
 
@@ -199,20 +200,20 @@ class StreamDispatcher extends EventEmitter<VoiceEvents> {
      */
     async playStream(resource: AudioResource<Track> = this.audioResource) {
         if (!resource) throw new PlayerError("Audio resource is not available!", ErrorStatusCode.NO_AUDIO_RESOURCE);
-        if (resource.ended) return void this.emit("error", new PlayerError("Cannot play a resource that has already ended.") as unknown as AudioPlayerError);
+        if (resource.ended) return void this.emit(Events.Error, new PlayerError("Cannot play a resource that has already ended.") as unknown as AudioPlayerError);
         if (!this.audioResource) this.audioResource = resource;
         if (this.voiceConnection.state.status !== VoiceConnectionStatus.Ready) {
             try {
                 await entersState(this.voiceConnection, VoiceConnectionStatus.Ready, this.connectionTimeout);
             } catch (err) {
-                return void this.emit("error", err as AudioPlayerError);
+                return void this.emit(Events.Error, err as AudioPlayerError);
             }
         }
 
         try {
             this.audioPlayer.play(resource);
         } catch (e) {
-            this.emit("error", e as AudioPlayerError);
+            this.emit(Events.Error, e as AudioPlayerError);
         }
 
         return this;

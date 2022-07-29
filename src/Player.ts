@@ -15,6 +15,7 @@ import { Playlist } from "./Structures/Playlist";
 import { ExtractorModel } from "./Structures/ExtractorModel";
 import { generateDependencyReport } from "@discordjs/voice";
 import { RawAlbum, RawPlaylist, search } from "./utils/AppleMusic";
+import { Events } from './types/types';
 
 const Spotify = require("spotify-url-info")(fetch)
 const soundcloud = new SoundCloud();
@@ -85,7 +86,7 @@ class Player extends EventEmitter<PlayerEvents> {
             } catch {
                 Util.noop;
             }
-            return void this.emit("botDisconnect", queue);
+            return void this.emit(Events.BotDisconnect, queue);
         }
 
         if (!oldState.channelId && newState.channelId && newState.member.id === newState.guild.members.me.id) {
@@ -116,7 +117,7 @@ class Player extends EventEmitter<PlayerEvents> {
                 if (!Util.isVoiceEmpty(queue.connection.channel)) return;
                 if (!this.queues.has(queue.guild.id)) return;
                 if (queue.options.leaveOnEmpty) queue.destroy(true);
-                this.emit("channelEmpty", queue);
+                this.emit(Events.ChannelEmpty, queue);
             }, queue.options.leaveOnEmptyCooldown || 0).unref();
             queue._cooldownsTimeout.set(`empty_${oldState.guild.id}`, timeout);
         }
@@ -142,7 +143,7 @@ class Player extends EventEmitter<PlayerEvents> {
                     if (queue.connection && !Util.isVoiceEmpty(queue.connection.channel)) return;
                     if (!this.queues.has(queue.guild.id)) return;
                     if (queue.options.leaveOnEmpty) queue.destroy(true);
-                    this.emit("channelEmpty", queue);
+                    this.emit(Events.ChannelEmpty, queue);
                 }, queue.options.leaveOnEmptyCooldown || 0).unref();
                 queue._cooldownsTimeout.set(`empty_${oldState.guild.id}`, timeout);
             }

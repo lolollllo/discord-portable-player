@@ -2,6 +2,7 @@ import { Collection, Guild, StageChannel, VoiceChannel, Snowflake, SnowflakeUtil
 import { Player } from "../Player";
 import { StreamDispatcher } from "../VoiceInterface/StreamDispatcher";
 import Track from "./Track";
+import { Events } from "../types/types";
 import { PlayerOptions, PlayerProgressbarOptions, PlayOptions, QueueFilters, LoopMode, TrackSource } from "../types/types";
 import ytdl from "discord-ytdl-core";
 import { AudioResource, StreamType } from "@discordjs/voice";
@@ -115,7 +116,7 @@ class Queue<T = unknown> {
 
         if ("onBeforeCreateStream" in this.options) this.onBeforeCreateStream = this.options.onBeforeCreateStream;
 
-        this.player.emit("debug", this, `Queue initialized:\n\n${this.player.scanDeps()}`);
+        this.player.emit(Events.Debug, this, `Queue initialized:\n\n${this.player.scanDeps()}`);
     }
 
     /**
@@ -167,19 +168,19 @@ class Queue<T = unknown> {
 
         this.connection.on("error", (err) => {
             if (this.#watchDestroyed(false)) return;
-            this.player.emit("connectionError", this, err);
+            this.player.emit(Events.ConnectionError, this, err);
         });
         this.connection.on("debug", (msg) => {
             if (this.#watchDestroyed(false)) return;
-            this.player.emit("debug", this, msg);
+            this.player.emit(Events.Debug, this, msg);
         });
 
-        this.player.emit("connectionCreate", this, this.connection);
+        this.player.emit(Events.ConnectionCreate, this, this.connection);
 
         this.connection.on("start", (resource) => {
             if (this.#watchDestroyed(false)) return;
             this.playing = true;
-            if (!this._filtersUpdate && resource?.metadata) this.player.emit("trackStart", this, resource?.metadata ?? this.current);
+            if (!this._filtersUpdate && resource?.metadata) this.player.emit(Events.TrackStart, this, resource?.metadata ?? this.current);
             this._filtersUpdate = false;
         });
 
@@ -190,11 +191,11 @@ class Queue<T = unknown> {
             this._streamTime = 0;
             if (resource && resource.metadata) this.previousTracks.push(resource.metadata);
 
-            this.player.emit("trackEnd", this, resource.metadata);
+            this.player.emit(Events.TrackEnd, this, resource.metadata);
 
             if (!this.tracks.length && this.loopMode === LoopMode.Off) {
                 if (this.options.leaveOnEnd) this.destroy();
-                this.player.emit("queueEnd", this);
+                this.player.emit(Events.QueueEnd, this);
             } else if (!this.tracks.length && this.loopMode === LoopMode.Autoplay) {
                 this._handleAutoplay(Util.last(this.previousTracks));
             } else {
@@ -248,7 +249,7 @@ class Queue<T = unknown> {
         if (this.#watchDestroyed()) return;
         if (!(track instanceof Track)) throw new PlayerError("invalid track", ErrorStatusCode.INVALID_TRACK);
         this.tracks.push(track);
-        this.player.emit("trackAdd", this, track);
+        this.player.emit(Events.TrackAdd, this, track);
     }
 
     /**
@@ -259,7 +260,7 @@ class Queue<T = unknown> {
         if (this.#watchDestroyed()) return;
         if (!tracks.every((y) => y instanceof Track)) throw new PlayerError("invalid track", ErrorStatusCode.INVALID_TRACK);
         this.tracks.push(...tracks);
-        this.player.emit("tracksAdd", this, tracks);
+        this.player.emit(Events.TracksAdd, this, tracks);
     }
 
     /**
@@ -548,7 +549,7 @@ class Queue<T = unknown> {
 
         this.tracks.splice(index, 0, track);
 
-        this.player.emit("trackAdd", this, track);
+        this.player.emit(Events.TrackAdd, this, track);
     }
 
     /**
@@ -631,7 +632,7 @@ class Queue<T = unknown> {
         const track = options.filtersUpdate && !options.immediate ? src || this.current : src ?? this.tracks.shift();
         if (!track) return;
 
-        this.player.emit("debug", this, "Received play request");
+        this.player.emit(Events.Debug, this, "Received play request");
 
         if (!options.filtersUpdate) {
             this.previousTracks = this.previousTracks.filter((x) => x.id !== track.id);
@@ -663,7 +664,7 @@ class Queue<T = unknown> {
                             seek: options.seek ? options.seek / 1000 : 0
                         })
                         .on("error", (err) => {
-                            return err.message.toLowerCase().includes("premature close") ? null : this.player.emit("error", this, err);
+                            return err.message.toLowerCase().includes("premature close") ? null : this.player.emit(Events.Error, this, err);
                         });
             } else {
                 stream = ytdl(link, {
@@ -674,7 +675,7 @@ class Queue<T = unknown> {
                     encoderArgs: options.encoderArgs ?? this._activeFilters.length ? ["-af", AudioFilters.create(this._activeFilters)] : [],
                     seek: options.seek ? options.seek / 1000 : 0
                 }).on("error", (err) => {
-                    return err.message.toLowerCase().includes("premature close") ? null : this.player.emit("error", this, err);
+                    return err.message.toLowerCase().includes("premature close") ? null : this.player.emit(Events.Error, this, err);
                 });
             }
         } else {
@@ -694,7 +695,7 @@ class Queue<T = unknown> {
                     seek: options.seek ? options.seek / 1000 : 0
                 })
                 .on("error", (err) => {
-                    return err.message.toLowerCase().includes("premature close") ? null : this.player.emit("error", this, err);
+                    return err.message.toLowerCase().includes("premature close") ? null : this.player.emit(Events.Error, this, err);
                 });
         }
 
@@ -729,14 +730,14 @@ class Queue<T = unknown> {
         if (this.#watchDestroyed()) return;
         if (!track || ![track.source, track.raw?.source].includes("youtube")) {
             if (this.options.leaveOnEnd) this.destroy();
-            return void this.player.emit("queueEnd", this);
+            return void this.player.emit(Events.QueueEnd, this);
         }
         const info = await YouTube.getVideo(track.url)
             .then((x) => x.videos[0])
             .catch(Util.noop);
         if (!info) {
             if (this.options.leaveOnEnd) this.destroy();
-            return void this.player.emit("queueEnd", this);
+            return void this.player.emit(Events.QueueEnd, this);
         }
 
         const nextTrack = new Track(this.player, {
@@ -786,7 +787,7 @@ class Queue<T = unknown> {
 
     #watchDestroyed(emit = true) {
         if (this.#destroyed) {
-            if (emit) this.player.emit("error", this, new PlayerError("Cannot use destroyed queue", ErrorStatusCode.DESTROYED_QUEUE));
+            if (emit) this.player.emit(Events.Error, this, new PlayerError("Cannot use destroyed queue", ErrorStatusCode.DESTROYED_QUEUE));
             return true;
         }
 
