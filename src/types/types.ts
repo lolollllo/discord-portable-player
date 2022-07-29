@@ -403,7 +403,7 @@ export interface PlayOptions {
 /**
  * @typedef {object} SearchOptions
  * @property {UserResolvable} requestedBy The user who requested this search
- * @property {QueryType|string} [searchEngine=QueryType.AUTO] The query search engine, can be extractor name to target specific one (custom)
+ * @property {QueryType|string} [searchEngine=QueryType.Auto] The query search engine, can be extractor name to target specific one (custom)
  * @property {boolean} [blockExtractor=false] If it should block custom extractors
  */
 export interface SearchOptions {
