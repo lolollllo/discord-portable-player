@@ -10,13 +10,13 @@ We are using **[Prettier](https://prettier.io)** to format the code.
 - Always use `PascalCase` for the files containing classes (example: `Queue`, `Track`, `Player` etc.)
 
 ## Some Rules
-- Use `camelCase` for `Function names`, `Variables`, etc. and `PascalCase` for `Class name`
-- Do not make unused variables/imports
-- Don't forget to write `JSDOC` for each property and method
-- Use English language
+- Use `camelCase` for `Function names`, `Variables`, etc. and `PascalCase` for `Class name`.
+- Do not make unused variables/imports.
+- Don't forget to write `JSDOC` for each property and method.
+- Use English.
 
 # Pull Requests
-- Use English language
-- Explain what your update does
-- Run `npm run docs:test` command to make sure documentation is working
-- Format the code properly with `npm run format`
+- Use English.
+- Explain why your PR should be merged.
+- Run `npm run docs:test` to make sure documentation is working.
+- Format the code properly with `npm run format`.
