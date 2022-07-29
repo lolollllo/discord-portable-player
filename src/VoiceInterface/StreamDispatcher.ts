@@ -11,7 +11,7 @@ import {
     VoiceConnectionStatus,
     VoiceConnectionDisconnectReason
 } from "@discordjs/voice";
-import { StageChannel, VoiceChannel } from "discord.js";
+import { StageChannel, VoiceChannel, VoiceState } from "discord.js";
 import { Duplex, Readable } from "stream";
 import { TypedEmitter as EventEmitter } from "tiny-typed-emitter";
 import Track from "../Structures/Track";
@@ -68,7 +68,7 @@ class StreamDispatcher extends EventEmitter<VoiceEvents> {
          */
         this.paused = false;
 
-        this.voiceConnection.on<"stateChange">("stateChange", async (_, newState) => {
+        this.voiceConnection.on<"stateChange">("stateChange", async (_: any, newState: VoiceState) => {
             if (newState.status === VoiceConnectionStatus.Disconnected) {
                 if (newState.reason === VoiceConnectionDisconnectReason.WebSocketClose && newState.closeCode === 4014) {
                     try {
@@ -110,7 +110,7 @@ class StreamDispatcher extends EventEmitter<VoiceEvents> {
             }
         });
 
-        this.audioPlayer.on<"stateChange">("stateChange", (oldState, newState) => {
+        this.audioPlayer.on<"stateChange">("stateChange", (oldState: VoiceState, newState: VoiceState) => {
             if (newState.status === AudioPlayerStatus.Playing) {
                 if (!this.paused) return void this.emit("start", this.audioResource);
             } else if (newState.status === AudioPlayerStatus.Idle && oldState.status !== AudioPlayerStatus.Idle) {
