@@ -35,8 +35,7 @@ First of all, you will need to register slash commands:
 
 ```js
 const { token, clientId } = require('./config.json');
-const { REST } = require("@discordjs/rest");
-const { Routes, SlashCommandBuilder } = require("discord.js");
+const { Routes, REST, SlashCommandBuilder } = require("discord.js");
 const commands = [
     new SlashCommandBuilder().setName('play').setDescription('play a song').addStringOption(option => option.setName('query').setDescription('The query to search for').setRequired(true))
 ].map(command => command.toJSON());
