@@ -1,6 +1,6 @@
 {
   "name": "discord-portable-player",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "Easy to use, framework to facilitate music commands using discord.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -74,7 +74,7 @@
     "soundcloud-scraper": "^5.0.3",
     "spotify-url-info": "^3.1.2",
     "tiny-typed-emitter": "^2.1.0",
-    "youtube-sr": "^4.2.0",
+    "youtube-sr": "^4.3.0",
     "ytdl-core": "^4.11.0"
   },
   "devDependencies": {
@@ -85,12 +85,12 @@
     "@devsnowflake/docgen": "devsnowflake/docgen#ts-patch",
     "@discord-player/extractor": "^3.0.2",
     "@discordjs/opus": "github:discordjs/opus",
-    "@favware/rollup-type-bundler": "^1.0.9",
-    "@types/node": "^18.6.2",
+    "@favware/rollup-type-bundler": "^1.0.10",
+    "@types/node": "^18.6.3",
     "@types/ws": "^8.5.3",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
-    "discord.js": "^14.1.1",
+    "discord.js": "^14.1.2",
     "eslint": "^8.20.0",
     "gen-esm-wrapper": "^1.1.3",
     "husky": "^8.0.1",
