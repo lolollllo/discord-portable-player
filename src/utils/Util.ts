@@ -78,7 +78,7 @@ class Util {
      * @returns {boolean}
      */
     static isEveryoneDeafened(channel: VoiceChannel | StageChannel) {
-        return channel.members.filter((member) => member.user.bot === false && member.voice.deaf === true).size === channel.members.size;
+        return channel.members.filter((member) => member.user.bot === false && member.voice.deaf === true).size === channel.members.filter(member => member.user.bot === false).size;
     }
 
     /**
