@@ -4,5 +4,5 @@ updates:
       directory: "/"
       schedule:
           interval: daily
-          time: "16:28"
+          time: "17:23"
           timezone: Indian/Maldives	
