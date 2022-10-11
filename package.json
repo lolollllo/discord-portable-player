@@ -66,7 +66,7 @@
   "homepage": "https://lolollllo.github.io/discord-portable-player/",
   "dependencies": {
     "@discordjs/voice": "^0.11.0",
-    "axios": "^0.27.2",
+    "axios": "^1.1.2",
     "cheerio": "^1.0.0-rc.12",
     "cross-fetch": "^3.1.5",
     "discord-ytdl-core": "^5.0.4",
