@@ -85,7 +85,7 @@
     "@devsnowflake/docgen": "devsnowflake/docgen#ts-patch",
     "@discord-player/extractor": "^3.0.2",
     "@discordjs/opus": "github:discordjs/opus",
-    "@favware/rollup-type-bundler": "^1.0.11",
+    "@favware/rollup-type-bundler": "^2.0.0",
     "@types/node": "^18.7.9",
     "@types/ws": "^8.5.3",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
